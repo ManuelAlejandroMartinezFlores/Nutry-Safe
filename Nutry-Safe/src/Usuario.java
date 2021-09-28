@@ -41,7 +41,7 @@ public class Usuario {
         setAltura(160);
         setCaloria_objetivo(2000);
         setCalorias_consumidas(0);
-
+        ultima_fecha = LocalDate.now().toString();
     }
 
     /**
@@ -51,14 +51,26 @@ public class Usuario {
     public void contarCaloria(int caloria){
         if (!ultima_fecha.equals(LocalDate.now().toString())){
             calorias_consumidas = 0;
+            ultima_fecha = LocalDate.now().toString();
         }
         calorias_consumidas += caloria;
         
     }
 
-    /** */
+    /**
+     * Indica las calorias disponibles en el día
+     * @return
+     */
     public int getCaloriaDisponible(){
-        return caloria_objetivo - calorias_consumidas;
+        if (!ultima_fecha.equals(LocalDate.now().toString())){
+            calorias_consumidas = 0;
+            ultima_fecha = LocalDate.now().toString();
+        }
+        if (calorias_consumidas > caloria_objetivo){
+            return 0;
+        } else {
+            return caloria_objetivo - calorias_consumidas;
+        }
     }
 
     public String getNombre_usuario() {

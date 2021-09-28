@@ -40,6 +40,14 @@ public class Usuario {
 
     }
 
+    public void contarCaloria(int caloria){
+        calorias_consumidas += caloria;
+    }
+
+    public int getCaloriaDisponible(){
+        return caloria_objetivo - calorias_consumidas;
+    }
+
     public String getNombre_usuario() {
         return nombre_usuario;
     }

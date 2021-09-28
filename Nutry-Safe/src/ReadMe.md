@@ -15,7 +15,7 @@ en la clase usuario.
 Leer y escribir archivos para Usuarios y Recetas
 
 ## Interfaz
-Contiene la lógica de todo el programa.
+Contiene la lógica de todo el programa. Única clase que está relacionada tanto con los modelos y con las vistas.
 
 ## Paneles
 Paquete que contiene las clases visuales

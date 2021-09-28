@@ -1,3 +1,5 @@
+import java.time.LocalDate; 
+
 public class Usuario {
     
     private String nombre_usuario;
@@ -6,6 +8,7 @@ public class Usuario {
     private int altura;
     private int caloria_objetivo;
     private int calorias_consumidas;
+    private String ultima_fecha;
 
 
     /**
@@ -24,6 +27,7 @@ public class Usuario {
         setAltura(altura_);
         setCaloria_objetivo(caloria_objetivo_);
         setCalorias_consumidas(calorias_consumidas_);
+        ultima_fecha = LocalDate.now().toString();
     }
 
     /**
@@ -40,10 +44,19 @@ public class Usuario {
 
     }
 
+    /**
+     * Añade calorias al contador diario
+     * @param caloria
+     */
     public void contarCaloria(int caloria){
+        if (!ultima_fecha.equals(LocalDate.now().toString())){
+            calorias_consumidas = 0;
+        }
         calorias_consumidas += caloria;
+        
     }
 
+    /** */
     public int getCaloriaDisponible(){
         return caloria_objetivo - calorias_consumidas;
     }

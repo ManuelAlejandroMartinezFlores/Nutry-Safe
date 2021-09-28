@@ -7,6 +7,16 @@ public class Usuario {
     private int caloria_objetivo;
     private int calorias_consumidas;
 
+
+    /**
+     * Constructor para usuario existente
+     * @param nombre_usuario_
+     * @param nombre_
+     * @param edad_
+     * @param altura_
+     * @param caloria_objetivo_
+     * @param calorias_consumidas_
+     */
     Usuario(String nombre_usuario_, String nombre_, int edad_, int altura_, int caloria_objetivo_, int calorias_consumidas_){
         setNombre_usuario(nombre_usuario_);
         setNombre(nombre_);
@@ -16,6 +26,10 @@ public class Usuario {
         setCalorias_consumidas(calorias_consumidas_);
     }
 
+    /**
+     * Constructor para usuario nuevo
+     * @param nombre_usuario_
+     */
     Usuario(String nombre_usuario_){
         setNombre_usuario(nombre_usuario_);
         setNombre(nombre_usuario_);

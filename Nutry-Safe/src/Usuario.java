@@ -3,7 +3,6 @@ import java.time.LocalDate;
 public class Usuario {
     
     private String nombre_usuario;
-    private String nombre;
     private int edad;
     private int altura;
     private int caloria_objetivo;
@@ -14,20 +13,20 @@ public class Usuario {
     /**
      * Constructor para usuario existente
      * @param nombre_usuario_
-     * @param nombre_
      * @param edad_
      * @param altura_
      * @param caloria_objetivo_
      * @param calorias_consumidas_
+     * @param ulitma_fecha_
      */
-    Usuario(String nombre_usuario_, String nombre_, int edad_, int altura_, int caloria_objetivo_, int calorias_consumidas_){
+    Usuario(String nombre_usuario_, int edad_, int altura_, int caloria_objetivo_,
+            int calorias_consumidas_, String ultima_fecha_){
         setNombre_usuario(nombre_usuario_);
-        setNombre(nombre_);
         setEdad(edad_);
         setAltura(altura_);
         setCaloria_objetivo(caloria_objetivo_);
         setCalorias_consumidas(calorias_consumidas_);
-        ultima_fecha = LocalDate.now().toString();
+        ultima_fecha = ultima_fecha_;
     }
 
     /**
@@ -36,7 +35,6 @@ public class Usuario {
      */
     Usuario(String nombre_usuario_){
         setNombre_usuario(nombre_usuario_);
-        setNombre(nombre_usuario_);
         setEdad(18);
         setAltura(160);
         setCaloria_objetivo(2000);
@@ -49,6 +47,7 @@ public class Usuario {
      * @param caloria
      */
     public void contarCaloria(int caloria){
+        // Si es día diferente se reinicia el contador
         if (!ultima_fecha.equals(LocalDate.now().toString())){
             calorias_consumidas = 0;
             ultima_fecha = LocalDate.now().toString();
@@ -62,6 +61,7 @@ public class Usuario {
      * @return
      */
     public int getCaloriaDisponible(){
+        // Si es día diferente se reinicia el contador
         if (!ultima_fecha.equals(LocalDate.now().toString())){
             calorias_consumidas = 0;
             ultima_fecha = LocalDate.now().toString();
@@ -73,20 +73,27 @@ public class Usuario {
         }
     }
 
+    /**
+     * Genera un texto para facilitar el guardado en .txt
+     */
+    @Override
+    public String toString(){
+        String txt = "Usuario,";
+        txt += nombre_usuario + ",";
+        txt += Integer.toString(edad) + ",";
+        txt += Integer.toString(altura) + ",";
+        txt += Integer.toString(caloria_objetivo) + ",";
+        txt += Integer.toString(calorias_consumidas) + ",";
+        txt += ultima_fecha;
+        return txt;
+    }
+
     public String getNombre_usuario() {
         return nombre_usuario;
     }
 
     public void setNombre_usuario(String nombre_usuario) {
         this.nombre_usuario = nombre_usuario;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public int getEdad() {
@@ -119,5 +126,9 @@ public class Usuario {
 
     public void setCalorias_consumidas(int calorias_consumidas) {
         this.calorias_consumidas = calorias_consumidas;
+    }
+
+    public String getUltima_fecha() {
+        return ultima_fecha;
     }
 }

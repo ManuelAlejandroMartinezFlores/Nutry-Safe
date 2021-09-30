@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 public class Archivos {
     Usuario [] Us;
     Scanner scan= new Scanner(System.in);

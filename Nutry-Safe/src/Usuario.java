@@ -78,7 +78,7 @@ public class Usuario {
      */
     @Override
     public String toString(){
-        String txt = "Usuario,";
+        String txt = "";
         txt += nombre_usuario + ",";
         txt += Integer.toString(edad) + ",";
         txt += Integer.toString(altura) + ",";

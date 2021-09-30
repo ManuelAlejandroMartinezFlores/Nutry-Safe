@@ -12,7 +12,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class Archivos {
-    Usuario [] Us;
+
+    // Esta parte no me parece necesaria:
+    Usuario [] Us; 
     Scanner scan= new Scanner(System.in);
     private String nombre;
     private int edadUsuario;
@@ -58,6 +60,7 @@ public class Archivos {
 
     /**Se define el constructor de la clase, de manera que establece la cantidad de datos en el arreglo y 
      * los valores iniciales de los atributos*/
+    // Esta parte no me parece necesaria:
     Archivos(){
         Us= new Usuario[1];
         for (int k=0; k<Us.length; k++){

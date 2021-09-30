@@ -149,5 +149,6 @@ public class Driver {
 
         System.out.println(usuarios.get(1).toString());
         System.out.println(Receta.darConsejo(usuarios.get(1)));
+        System.out.println(Receta.recetaCalorias(usuarios.get(1)));
     }   
 }

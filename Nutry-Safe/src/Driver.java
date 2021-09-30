@@ -10,6 +10,10 @@ public class Driver {
         Archivos.Escribiendo(usuarios);
         usuarios = Archivos.Leyendo();
         System.out.println(usuarios.get(1).toString());
+        usuarios.get(1).contarCaloria(100);
+        Archivos.Escribiendo(usuarios);
+        usuarios = Archivos.Leyendo();
+        System.out.println(usuarios.get(1).toString());
     }
 
     

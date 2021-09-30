@@ -1,7 +1,5 @@
 public class Receta {
     
-    Usuario usuario = new Usuario();
-
     public void darReceta(Usuario U){
         if(U.getEdad() >=19 && U.getEdad() <= 25) {
             System.out.println("La caloria necesaria para un joven es aproximadamente 2900 calorias. La caloria que usted desea consumir es" + " " + U.getCaloria_objetivo() + ".");

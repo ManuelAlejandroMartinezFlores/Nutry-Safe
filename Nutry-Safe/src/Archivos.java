@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Archivos {
     Usuario [] Us;
@@ -68,51 +69,23 @@ public class Archivos {
         this.Fecha="";
     }
 
-    public void DatosUsuario(){
-        System.out.print("Por favor ingrese los datos solicitados a continuación\n");
-        System.out.print("Su nombre completo\n");
-        this.nombre=scan.nextLine();
-        System.out.print("Su edad\n");
-        this.edadUsuario=scan.nextInt();
-        scan.nextLine();
-        System.out.print("Su altura en metros\n");
-        this.alturaUsuario=scan.nextInt();
-        scan.nextLine();
-        System.out.print("Su meta de calorías diaria\n");
-        this.ObjetivoCal=scan.nextInt();
-        scan.nextLine();
-
-        /**Se agregan los datos solicitados a un arreglo que se encargará de almacenar los datos en el archivo .txt */
-        Us[0].setNombre_usuario(this.nombre);
-        Us[0].setEdad(this.edadUsuario);
-        Us[0].setAltura(this.alturaUsuario);
-        Us[0].setCaloria_objetivo(ObjetivoCal);
-        Us[0].setCalorias_consumidas(Consumo);
-
-    }
-    public void Escribiendo(){
+    public static void Escribiendo(ArrayList<Usuario> usuarios){
         
         try{
             // En caso de que el archivo.txt no exista, se crea
-            File datosU= new File("datosU.txt");
-            if (datosU.createNewFile()) {
-                System.out.println("Archivo creado: " + datosU.getName());
-            } else {
-                System.out.println("Archivo ya existe.");
-            }
+            File datosU= new File("src/Data/Usuarios.txt");
+            datosU.createNewFile();
             // Se guardan los datos en el archivo correspondiente
-            FileWriter myWriter = new FileWriter(datosU,true);
-            for (int i=0; i<Us.length; i++){
-                myWriter.append("Nombre: " + Us[0].getNombre_usuario());
-                myWriter.append("Edad: " + Us[0].getEdad());
-                myWriter.append("Altura: " + Us[0].getAltura() + " metros.");
-                myWriter.append("Objetivo de calorías diario: " + Us[0].getCaloria_objetivo());
+            FileWriter myWriter = new FileWriter(datosU,false);
+            String txt = "";
+            for (int i=0; i<usuarios.size(); i++){
+                txt += usuarios.get(i).toString() + "\n";
+    
             }
+            myWriter.write(txt);
             myWriter.close();
             
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace(); }
+        } catch (IOException e) {}
         
         
 

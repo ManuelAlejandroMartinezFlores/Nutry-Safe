@@ -88,6 +88,12 @@ public class Usuario {
         return txt;
     }
 
+    public void setDatos(int edad_, int altura_, int caloria_objetivo_){
+        setEdad(edad_);
+        setAltura(altura_);
+        setCaloria_objetivo(caloria_objetivo_);
+    }
+
     public String getNombre_usuario() {
         return nombre_usuario;
     }

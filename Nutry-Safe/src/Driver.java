@@ -9,15 +9,21 @@ public class Driver {
         Scanner scan = new Scanner(System.in);
         int id_usuario = -1;
         int opcion = 0;
+        int calorias = 0;
+        String n_usuario = "";
+
+        int edad = 0;
+        int altura = 0;
+        int caloria_objetivo = 0;
 
         while (opcion != 6){
-            System.out.println("Bienvenido");
+            System.out.println("\nBienvenido");
             System.out.println("1 - Ingreso de usuario");
             System.out.println("2 - Calorias");
             System.out.println("3 - Datos");
             System.out.println("4 - Consejos");
             System.out.println("5 - Recetas");
-            System.out.println("6 - Salir");
+            System.out.println("6 - Salir\n");
 
             try {
                 opcion = scan.nextInt();
@@ -28,6 +34,8 @@ public class Driver {
 
             switch (opcion){
                 case 1:
+                    Archivos.Escribiendo(usuarios);
+                    usuarios = Archivos.Leyendo();
                     System.out.println("1 - Nuevo");
                     System.out.println("2 - Existente");
                     int respuesta = -1;
@@ -40,6 +48,7 @@ public class Driver {
                         }
                     }
 
+                    id_usuario = -1;
                     if (respuesta == 2) {
                         for (int i=0; i<usuarios.size(); i++){
                             System.out.println(Integer.toString(i) + " - " + usuarios.get(i).getNombre_usuario());
@@ -52,18 +61,20 @@ public class Driver {
                                 scan.nextLine();
                             }
                         }
-                    } else{
-                        String n_usuario = "";
+                    } else {
+                        n_usuario = "";
                         while( n_usuario.length() == 0){
                             n_usuario = scan.nextLine();
                         }
                         usuarios.add(new Usuario(n_usuario));
+                        id_usuario = usuarios.size() - 1;
                     }
                     break;
 
                 case 2:
-                    int calorias = 0;
-                    while (calorias <1){
+                    calorias = 0;
+                    System.out.println("Ingrese sus calorias consumidas");
+                    while (calorias < 1){
                         try {
                             calorias = scan.nextInt();
                         } catch (InputMismatchException e) {
@@ -77,23 +88,65 @@ public class Driver {
                         }
                     }
                     break;
+                
+                case 3:
+                    System.out.println("Ingrese edad");
+                    edad = 0;
+                    while (edad < 1){
+                        try {
+                            edad = scan.nextInt();
+                        } catch (InputMismatchException e) {
+                            edad = 0;
+                            scan.nextLine();
+                        }
+                    }
 
+                    System.out.println("Ingrese altura (cm)");
+                    altura = 0;
+                    while (altura < 1){
+                        try {
+                            altura = scan.nextInt();
+                        } catch (InputMismatchException e) {
+                            altura = 0;
+                            scan.nextLine();
+                        }
+                    }
+
+                    System.out.println("Ingrese calorias objetivo");
+                    caloria_objetivo = 0;
+                    while (caloria_objetivo < 1){
+                        try {
+                            caloria_objetivo = scan.nextInt();
+                        } catch (InputMismatchException e) {
+                            caloria_objetivo = 0;
+                            scan.nextLine();
+                        }
+                    }
+                    if (id_usuario == -1){
+                        System.out.println("No ha ingresado un usuario");
+                    } else {
+                        usuarios.get(id_usuario).setDatos(edad, altura, caloria_objetivo);
+                        System.out.print("Se han actualizado datos: ");
+                        System.out.println(usuarios.get(id_usuario).toString());
+                    }
+                    break;
+
+                case 4:
+                    System.out.println(Receta.darConsejo(usuarios.get(id_usuario)));
+                    break;
+
+                case 5:
+                    // Algo con recetas
+                    break;
+
+                case 6:
+                    System.out.println("Guardando...");
+                    Archivos.Escribiendo(usuarios);
+                    break;
             }
         }
+        scan.close();
 
-
-
-
-        System.out.println("Hello, World!");
-        Archivos a= new Archivos();
-        usuarios.add(new Usuario("Usuario1", 18,160,2000,100,"2021-09-30"));
-        usuarios.add(new Usuario("Usuario2", 20,175,2200,500,"2021-09-30"));
-        Archivos.Escribiendo(usuarios);
-        usuarios = Archivos.Leyendo();
-        System.out.println(usuarios.get(1).toString());
-        usuarios.get(1).contarCaloria(100);
-        Archivos.Escribiendo(usuarios);
-        usuarios = Archivos.Leyendo();
         System.out.println(usuarios.get(1).toString());
         System.out.println(Receta.darConsejo(usuarios.get(1)));
     }   

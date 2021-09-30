@@ -1,4 +1,5 @@
 public class Receta {
+    Usuario u = new Usuario();
     public Receta(){
     }
     public String recetaCalorias(){

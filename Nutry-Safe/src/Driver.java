@@ -8,6 +8,8 @@ public class Driver {
         usuarios.add(new Usuario("Usuario1", 18,160,2000,100,"2021-09-30"));
         usuarios.add(new Usuario("Usuario2", 20,175,2200,500,"2021-09-30"));
         Archivos.Escribiendo(usuarios);
+        usuarios = Archivos.Leyendo();
+        System.out.println(usuarios.get(1).toString());
     }
 
     

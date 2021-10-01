@@ -1,8 +1,23 @@
+/**
+ * Driver.
+ * 
+ * Interactua con el usuario mostrando y recibiendo mensajes.
+ * Funciona como menú del programa.
+ * 
+ * @version Entrega 1
+ */
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Driver {
+    
+    /** 
+     * Contiene el menú del programa.
+     * Muestra y recibe mensajes.
+     * @param args
+     */
     public static void main(String[] args) {
 
         ArrayList<Usuario> usuarios = Archivos.Leyendo();
@@ -17,7 +32,7 @@ public class Driver {
         int caloria_objetivo = 0;
 
         while (opcion != 6){
-            System.out.println("\nBienvenido");
+            System.out.println("\nBienvenido. Seleccione la opción que desee");
             System.out.println("1 - Ingreso de usuario");
             System.out.println("2 - Calorias");
             System.out.println("3 - Datos");
@@ -36,6 +51,7 @@ public class Driver {
                 case 1:
                     Archivos.Escribiendo(usuarios);
                     usuarios = Archivos.Leyendo();
+                    System.out.println("\nSeleccione la opción que desee");
                     System.out.println("1 - Nuevo");
                     System.out.println("2 - Existente");
                     int respuesta = -1;
@@ -51,6 +67,7 @@ public class Driver {
                     id_usuario = -1;
                     if (respuesta == 2) {
                         for (int i=0; i<usuarios.size(); i++){
+                            System.out.println("\nSeleccione la opción que desee");
                             System.out.println(Integer.toString(i) + " - " + usuarios.get(i).getNombre_usuario());
                         }
                         while (id_usuario < 0 || id_usuario > usuarios.size()-1){
@@ -63,6 +80,7 @@ public class Driver {
                         }
                     } else {
                         n_usuario = "";
+                        System.out.println("\nIngrese nombre de usuario nuevo");
                         while( n_usuario.length() == 0){
                             n_usuario = scan.nextLine();
                         }
@@ -85,6 +103,7 @@ public class Driver {
                             System.out.println("No ha ingresado un usuario");
                         } else {
                             usuarios.get(id_usuario).contarCaloria(calorias);
+                            System.out.print("Calorías disponibles en el día");
                         }
                     }
                     break;
@@ -132,11 +151,20 @@ public class Driver {
                     break;
 
                 case 4:
-                    System.out.println(Receta.darConsejo(usuarios.get(id_usuario)));
+                    if (id_usuario == -1){
+                        System.out.println("No ha ingresado un usuario");
+                    } else {
+                        System.out.println(Receta.darConsejo(usuarios.get(id_usuario)));
+                    }
                     break;
 
                 case 5:
-                    // Algo con recetas
+                    if (id_usuario == -1){
+                        System.out.println("No ha ingresado un usuario");
+                    } else {
+                        System.out.println(Receta.recetaCalorias(usuarios.get(id_usuario)));
+                    }
+                    
                     break;
 
                 case 6:
@@ -146,9 +174,5 @@ public class Driver {
             }
         }
         scan.close();
-
-        System.out.println(usuarios.get(1).toString());
-        System.out.println(Receta.darConsejo(usuarios.get(1)));
-        System.out.println(Receta.recetaCalorias(usuarios.get(1)));
     }   
 }

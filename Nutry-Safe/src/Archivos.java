@@ -1,6 +1,8 @@
-/**Se crea la clase archivos donde se almacenaran los datos del usuario, 
- * de manera que se utiliza el objeto usuario definido en la clase Usuario para 
- * crear un arreglo con los datos correspondientes. 
+/**
+ * Archivos.
+ * 
+ * Escribe y lee archivos .txt que contiene la infomación los usuarios que utilizan el programa.
+ * @version Entrega 1
  */
 
 import java.io.File;
@@ -12,6 +14,11 @@ import java.io.FileReader;
 
 public class Archivos {
 
+    
+    /** 
+     * Escribe un usuario por linea en src/Data/Usuarios.txt
+     * @param usuarios los usuarios a guardar
+     */
     public static void Escribiendo(ArrayList<Usuario> usuarios){
         
         try{
@@ -31,6 +38,11 @@ public class Archivos {
         } catch (IOException e) {}
     }
 
+    
+    /** 
+     * Lee los usuarios del archivo src/Data/Usuarios.txt
+     * @return ArrayList<Usuario> los usuarios contenidos en el archivo
+     */
     public static ArrayList<Usuario> Leyendo(){
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
         try {

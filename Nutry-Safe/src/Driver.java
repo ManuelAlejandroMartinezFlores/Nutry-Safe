@@ -134,7 +134,7 @@ public class Driver {
 
                     System.out.println("Ingrese calorias objetivo");
                     caloria_objetivo = 0;
-                    while (caloria_objetivo < 1){
+                    while (caloria_objetivo < 1500){
                         try {
                             caloria_objetivo = scan.nextInt();
                         } catch (InputMismatchException e) {

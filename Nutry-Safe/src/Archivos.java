@@ -3,7 +3,6 @@
  * crear un arreglo con los datos correspondientes. 
  */
 
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,67 +11,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class Archivos {
-
-    // Esta parte no me parece necesaria:
-    Usuario [] Us; 
-    Scanner scan= new Scanner(System.in);
-    private String nombre;
-    private int edadUsuario;
-    private int alturaUsuario;
-    private int ObjetivoCal;
-    private int Consumo;
-    private String Fecha;
-/**Se crean el set y get de cada atributo */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-    public void setEdadUsuario(int edadUsuario) {
-        this.edadUsuario = edadUsuario;
-    }public int getEdadUsuario() {
-        return edadUsuario;
-    }
-    public void setAlturaUsuario(int alturaUsuario) {
-        this.alturaUsuario = alturaUsuario;
-    }
-    public int getAlturaUsuario() {
-        return alturaUsuario;
-    }
-    public void setObjetivoCal(int objetivoCal) {
-        ObjetivoCal = objetivoCal;
-    }
-    public int getObjetivoCal() {
-        return ObjetivoCal;
-    }public void setConsumo(int consumo) {
-        Consumo = consumo;
-    }
-    public int getConsumo() {
-        return Consumo;
-    }
-    public void setFecha(String fecha) {
-        Fecha = fecha;
-    }
-    public String getFecha() {
-        return Fecha;
-    }
-
-    /**Se define el constructor de la clase, de manera que establece la cantidad de datos en el arreglo y 
-     * los valores iniciales de los atributos*/
-    // Esta parte no me parece necesaria:
-    Archivos(){
-        Us= new Usuario[1];
-        for (int k=0; k<Us.length; k++){
-            Us[k]= new Usuario("Nombre completo", 0, 0, 0, 0, "");
-        }
-        this.nombre= "";
-        this.edadUsuario=0;
-        this.alturaUsuario=0;
-        this.ObjetivoCal=0;
-        this.Consumo=0;
-        this.Fecha="";
-    }
 
     public static void Escribiendo(ArrayList<Usuario> usuarios){
         

@@ -66,8 +66,8 @@ public class Driver {
 
                     id_usuario = -1;
                     if (respuesta == 2) {
+                        System.out.println("\nSeleccione la opción que desee");
                         for (int i=0; i<usuarios.size(); i++){
-                            System.out.println("\nSeleccione la opción que desee");
                             System.out.println(Integer.toString(i) + " - " + usuarios.get(i).getNombre_usuario());
                         }
                         while (id_usuario < 0 || id_usuario > usuarios.size()-1){
@@ -104,6 +104,7 @@ public class Driver {
                         } else {
                             usuarios.get(id_usuario).contarCaloria(calorias);
                             System.out.print("Calorías disponibles en el día");
+                            System.out.println(usuarios.get(id_usuario).getCaloriaDisponible());
                         }
                     }
                     break;

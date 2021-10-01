@@ -1,7 +1,7 @@
 public class Receta {;
 
     public static String recetaCalorias(Usuario u){
-        if (u.getCaloria_objetivo() <= 2400 && u.getCaloria_objetivo() >= 2000) {
+        if (u.getCaloria_objetivo() <= 2400) {
             return "Desayuno: \n\t-1 taza de café cpn leche desnatda. \n\t-2 tostadas integrales con mermelada de frutas. \nMerienda: \n\t-1 yogurt desntado. \n\t-5 nueces. \n\t-1 plátano en rodajas. \nAlmuerzo: \n\t-Macarrones con brócoli. \n\t-1 pechuga de pollo a la plancha. \n\t-1 manzana. \nCena: \n\t-Merluza ala plancha. \n\t-1 taza de puré de calabaza. \n\t-1 infusión de lo que desee. ";
         }
         else {

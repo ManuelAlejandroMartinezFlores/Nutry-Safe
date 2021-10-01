@@ -19,3 +19,6 @@ Contiene la lógica de todo el programa. Única clase que está relacionada tant
 
 ## Paneles
 Paquete que contiene las clases visuales
+
+## Data
+Contiene los archivos que contienen datos a acceder

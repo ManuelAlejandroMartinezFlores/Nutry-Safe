@@ -4,7 +4,12 @@ import javax.swing.*;
 
 public class PanelGeneral extends JPanel {
 	
-	PanelGeneral(){
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5751748113985052922L;
+
+	public PanelGeneral(){
 		super();
 		
 		JLabel lblNewLabel = new JLabel("Titulo");
@@ -12,5 +17,8 @@ public class PanelGeneral extends JPanel {
 		
 		JButton btnNewButton = new JButton("New button");
 		add(btnNewButton);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		add(lblNewLabel_1);
 	}
 }

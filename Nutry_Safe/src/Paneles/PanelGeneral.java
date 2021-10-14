@@ -11,14 +11,34 @@ public class PanelGeneral extends JPanel {
 
 	public PanelGeneral(){
 		super();
+		setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Titulo");
-		add(lblNewLabel);
+		JLabel opciones_l = new JLabel("Opciones");
+		opciones_l.setBounds(22, 21, 61, 16);
+		add(opciones_l);
 		
-		JButton btnNewButton = new JButton("New button");
-		add(btnNewButton);
+		JButton recetas_b = new JButton("Recetas");
+		recetas_b.setBounds(22, 60, 117, 29);
+		add(recetas_b);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		add(lblNewLabel_1);
+		JButton consejos_b = new JButton("Consejos");
+		consejos_b.setBounds(22, 101, 117, 29);
+		add(consejos_b);
+		
+		JButton calorias_b = new JButton("Calorias");
+		calorias_b.setBounds(22, 142, 117, 29);
+		add(calorias_b);
+		
+		JButton datos_b = new JButton("Datos");
+		datos_b.setBounds(22, 183, 117, 29);
+		add(datos_b);
+		
+		JButton salir_b = new JButton("Salir");
+		salir_b.setBounds(22, 224, 117, 29);
+		add(salir_b);
+		
+		JLabel titulo_l = new JLabel("New label");
+		titulo_l.setBounds(204, 21, 61, 16);
+		add(titulo_l);
 	}
 }

@@ -2,7 +2,7 @@ package Paneles;
 
 import javax.swing.*;
 
-public class PanelReceta extends JPanel {
+public class PanelReceta extends PanelGeneral {
 	
 
 	/**
@@ -11,6 +11,7 @@ public class PanelReceta extends JPanel {
 	private static final long serialVersionUID = -6725610609109086538L;
 
 	public PanelReceta() {
+		super();
 		
 	}
 

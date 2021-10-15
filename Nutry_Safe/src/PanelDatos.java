@@ -74,6 +74,10 @@ public class PanelDatos extends JPanel{
 		add(peso_tf);
 		peso_tf.setColumns(10);
 		
+		JLabel error_l = new JLabel("");
+		error_l.setBounds(178, 242, 184, 16);
+		add(error_l);
+		
 		JButton aceptar_b = new JButton("Aceptar");
 		aceptar_b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -85,10 +89,15 @@ public class PanelDatos extends JPanel{
 					int peso = Integer.valueOf(peso_tf.getText());
 					Controlador.actualizarDatos(id, nombre_usuario, edad, altura, peso, meta);
 					setVisible(false);
-				} catch (Exception ex) {}
+					error_l.setText("");
+				} catch (Exception ex) {
+					error_l.setText("Error en ingreso de datos");
+				}
 			}
 		});
-		aceptar_b.setBounds(217, 232, 117, 29);
+		aceptar_b.setBounds(217, 199, 117, 29);
 		add(aceptar_b);
+		
+		
 	}
 }

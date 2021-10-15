@@ -13,33 +13,33 @@ public class PanelGeneral extends JPanel {
 
 	
 	
-	protected JLabel opciones_l;
-	protected JButton recetas_b;
-	protected JButton consejos_b;
-	protected JButton calorias_b;
-	protected JButton datos_b;
-	protected JButton salir_b;
+	private PanelDatos datos_p;
+	private PanelReceta receta_p;
+	private PanelConsejos consejos_p;
+	private PanelCalorias calorias_p;
+	int id;
+	
 	
 	public PanelGeneral(int id){
 		super();
 		setLayout(null);
 		
-		PanelDatos datos_p = new PanelDatos(id);
+		datos_p = new PanelDatos(id);
 		datos_p.setBounds(151, 0, 349, 273);
-		datos_p.setVisible(false);
+		datos_p.setVisible(true);
 		add(datos_p);
 		
-		PanelConsejos consejos_p = new PanelConsejos();
+		consejos_p = new PanelConsejos(id);
 		consejos_p.setBounds(151, 0, 349, 273);
 		consejos_p.setVisible(false);
 		add(consejos_p);
 		
-		PanelReceta receta_p = new PanelReceta();
+		receta_p = new PanelReceta(id);
 		receta_p.setBounds(151, 0, 349, 273);
 		receta_p.setVisible(false);
 		add(receta_p);
 		
-		PanelCalorias calorias_p = new PanelCalorias();
+		calorias_p = new PanelCalorias(id);
 		calorias_p.setBounds(151, 0, 349, 273);
 		calorias_p.setVisible(false);
 		add(calorias_p);
@@ -53,9 +53,8 @@ public class PanelGeneral extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				consejos_p.setVisible(false);
 				datos_p.setVisible(false);
-				receta_p.setVisible(true);
+				mostrarReceta();
 				calorias_p.setVisible(false);
-				
 			}
 		});
 		recetas_b.setBounds(22, 60, 117, 29);
@@ -66,7 +65,7 @@ public class PanelGeneral extends JPanel {
 		JButton consejos_b = new JButton("Consejos");
 		consejos_b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				consejos_p.setVisible(true);
+				mostrarConsejos();
 				datos_p.setVisible(false);
 				receta_p.setVisible(false);
 				calorias_p.setVisible(false);
@@ -81,7 +80,7 @@ public class PanelGeneral extends JPanel {
 				consejos_p.setVisible(false);
 				datos_p.setVisible(false);
 				receta_p.setVisible(false);
-				calorias_p.setVisible(true);
+				mostrarCalorias();
 			}
 		});
 		calorias_b.setBounds(22, 142, 117, 29);
@@ -93,7 +92,7 @@ public class PanelGeneral extends JPanel {
 		datos_b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				consejos_p.setVisible(false);
-				datos_p.setVisible(true);
+				mostrarDatos();
 				receta_p.setVisible(false);
 				calorias_p.setVisible(false);
 			}
@@ -103,5 +102,45 @@ public class PanelGeneral extends JPanel {
 		
 	
 		
+	}
+	
+	private void mostrarDatos() {
+		remove(datos_p);
+		datos_p = new PanelDatos(id);
+		datos_p.setBounds(151, 0, 349, 273);
+		datos_p.setVisible(true);
+		add(datos_p);
+		datos_p.revalidate();
+		datos_p.repaint();
+	}
+	
+	private void mostrarReceta() {
+		remove(receta_p);
+		receta_p = new PanelReceta(id);
+		receta_p.setBounds(151, 0, 349, 273);
+		receta_p.setVisible(true);
+		add(receta_p);
+		receta_p.revalidate();
+		receta_p.repaint();
+	}
+	
+	private void mostrarConsejos() {
+		remove(consejos_p);
+		consejos_p = new PanelConsejos(id);
+		consejos_p.setBounds(151, 0, 349, 273);
+		consejos_p.setVisible(true);
+		add(consejos_p);
+		consejos_p.revalidate();
+		consejos_p.repaint();
+	}
+	
+	private void mostrarCalorias() {
+		remove(calorias_p);
+		calorias_p = new PanelCalorias(id);
+		calorias_p.setBounds(151, 0, 349, 273);
+		calorias_p.setVisible(true);
+		add(calorias_p);
+		calorias_p.revalidate();
+		calorias_p.repaint();
 	}
 }

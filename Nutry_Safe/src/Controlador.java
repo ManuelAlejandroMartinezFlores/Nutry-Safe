@@ -2,10 +2,6 @@ import java.util.ArrayList;
 
 public class Controlador {
 	
-	public Controlador() {
-		
-		
-	}
 	
 	public static void actualizarDatos(int id, String nombre_usuario_, int edad_, int altura_, int peso_, int caloria_objetivo_) {
 		ArrayList<Usuario> usuarios = Archivos.Leyendo();
@@ -37,5 +33,21 @@ public class Controlador {
 			}
 		}
 		return 0;
+	}
+	
+	public static int calDisponiblesUsuario(int id) {
+		ArrayList<Usuario> usuarios = Archivos.Leyendo();
+		return usuarios.get(id).getCaloriaDisponible();
+	}
+	
+	public static int calMetaUsuario(int id) {
+		ArrayList<Usuario> usuarios = Archivos.Leyendo();
+		return usuarios.get(id).getCaloria_objetivo();
+	}
+	
+	public static void contarCalUsuario(int id, int caloria) {
+		ArrayList<Usuario> usuarios = Archivos.Leyendo();
+		usuarios.get(id).contarCaloria(caloria);
+		Archivos.Escribiendo(usuarios);
 	}
 }

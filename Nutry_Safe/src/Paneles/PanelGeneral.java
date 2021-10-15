@@ -9,7 +9,16 @@ public class PanelGeneral extends JPanel {
 	 */
 	private static final long serialVersionUID = 5751748113985052922L;
 
-	public PanelGeneral(){
+	
+	
+	protected JLabel opciones_l;
+	protected JButton recetas_b;
+	protected JButton consejos_b;
+	protected JButton calorias_b;
+	protected JButton datos_b;
+	protected JButton salir_b;
+	
+	protected PanelGeneral(){
 		super();
 		setLayout(null);
 		
@@ -37,8 +46,6 @@ public class PanelGeneral extends JPanel {
 		salir_b.setBounds(22, 224, 117, 29);
 		add(salir_b);
 		
-		JLabel titulo_l = new JLabel("New label");
-		titulo_l.setBounds(204, 21, 61, 16);
-		add(titulo_l);
 	}
+	
 }

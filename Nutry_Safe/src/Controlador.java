@@ -4,7 +4,7 @@ public class Controlador {
 	
 	
 	public static void actualizarDatos(int id, String nombre_usuario_, int edad_, int altura_, int peso_,
-										int caloria_objetivo_)throws Exception {
+										int caloria_objetivo_) throws Exception {
 		
 		if (nombre_usuario_.length() == 0 || edad_ < 0 || altura_ < 0 || peso_ < 0 || caloria_objetivo_ < 0) {
 			throw new Exception();

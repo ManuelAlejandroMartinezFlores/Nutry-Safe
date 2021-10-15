@@ -77,13 +77,15 @@ public class PanelDatos extends JPanel{
 		JButton aceptar_b = new JButton("Aceptar");
 		aceptar_b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nombre_usuario = nombre_tf.getText();
-				int edad = Integer.valueOf(edad_tf.getText());
-				int altura = Integer.valueOf(altura_tf.getText());
-				int meta = Integer.valueOf(meta_tf.getText());
-				int peso = Integer.valueOf(peso_tf.getText());
-				Controlador.actualizarDatos(id, nombre_usuario, edad, altura, peso, meta);
-				setVisible(false);
+				try {
+					String nombre_usuario = nombre_tf.getText();
+					int edad = Integer.valueOf(edad_tf.getText());
+					int altura = Integer.valueOf(altura_tf.getText());
+					int meta = Integer.valueOf(meta_tf.getText());
+					int peso = Integer.valueOf(peso_tf.getText());
+					Controlador.actualizarDatos(id, nombre_usuario, edad, altura, peso, meta);
+					setVisible(false);
+				} catch (Exception ex) {}
 			}
 		});
 		aceptar_b.setBounds(217, 232, 117, 29);

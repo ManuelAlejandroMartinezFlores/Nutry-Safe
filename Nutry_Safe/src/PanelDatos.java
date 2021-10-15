@@ -82,7 +82,7 @@ public class PanelDatos extends JPanel{
 				int altura = Integer.valueOf(altura_tf.getText());
 				int meta = Integer.valueOf(meta_tf.getText());
 				int peso = Integer.valueOf(peso_tf.getText());
-				Interfaz.actualizarDatos(id, nombre_usuario, edad, altura, peso, meta);
+				Controlador.actualizarDatos(id, nombre_usuario, edad, altura, peso, meta);
 				setVisible(false);
 			}
 		});

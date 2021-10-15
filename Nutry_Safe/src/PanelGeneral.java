@@ -101,12 +101,7 @@ public class PanelGeneral extends JPanel {
 		datos_b.setBounds(22, 183, 117, 29);
 		add(datos_b);
 		
-		JButton salir_b = new JButton("Salir");
-		salir_b.setBounds(22, 224, 117, 29);
-		add(salir_b);
-		
-		
-		
+	
 		
 	}
 }

@@ -13,13 +13,14 @@ public class PanelIngreso extends JPanel {
 
 	public PanelIngreso(int id_) {
 		super();
+		int id = id_;
 		setLayout(null);
 		
 		
 		
 		// No tocar
 		
-		int id = id_;
+		
 		
 		PanelGeneral panel = new PanelGeneral(id);
 		panel.setBounds(0, 300, 10, 500);

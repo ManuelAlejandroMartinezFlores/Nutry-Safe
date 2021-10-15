@@ -13,4 +13,29 @@ public class Controlador {
 		Archivos.Escribiendo(usuarios);
 	}
 	
+	public static boolean usuarioExiste(String usuario) {
+		ArrayList<Usuario> usuarios = Archivos.Leyendo();
+		for (int i=0; i<usuarios.size(); i++) {
+			if (usuarios.get(i).getNombre_usuario().equals(usuario)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static int getIdUsuario(String usuario) {
+		ArrayList<Usuario> usuarios = Archivos.Leyendo();
+		if (!usuarioExiste(usuario)) {
+			usuarios.add(new Usuario(usuario));
+			Archivos.Escribiendo(usuarios);
+			return usuarios.size() - 1;
+		} else {
+			for (int i=0; i<usuarios.size(); i++) {
+				if (usuarios.get(i).getNombre_usuario().equals(usuario)) {
+					return i;
+				}
+			}
+		}
+		return 0;
+	}
 }

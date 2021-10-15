@@ -14,7 +14,6 @@ import java.util.Scanner;
 
 import javax.swing.JFrame;
 
-import Paneles.*;
 
 public class Driver {
     
@@ -194,7 +193,17 @@ public class Driver {
     } 
     
     public static void createAndShowGUI() {
-		Interfaz frame = new Interfaz();
+		JFrame frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setPreferredSize(new Dimension(500,300));
+		PanelGeneral p = new PanelGeneral(0);
+		p.setOpaque(true);
+		
+		frame.setContentPane(p);
+
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
 //		frame.setDefaultCloseOperation(JEXIT_ON_CLOSE);
 //		frame.setPreferredSize(new Dimension(500,300));
 //		PanelDatos p = new PanelDatos();

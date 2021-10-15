@@ -12,6 +12,7 @@ public class Usuario {
     private String nombre_usuario;
     private int edad;
     private int altura;
+    private int peso;
     private int caloria_objetivo;
     private int calorias_consumidas;
     private String ultima_fecha;
@@ -26,11 +27,12 @@ public class Usuario {
      * @param calorias_consumidas_ durante el día
      * @param ulitma_fecha_ en la que se inicio sesión
      */
-    Usuario(String nombre_usuario_, int edad_, int altura_, int caloria_objetivo_,
+    Usuario(String nombre_usuario_, int edad_, int altura_, int peso_, int caloria_objetivo_,
             int calorias_consumidas_, String ultima_fecha_){
         setNombre_usuario(nombre_usuario_);
         setEdad(edad_);
         setAltura(altura_);
+        peso = peso_;
         setCaloria_objetivo(caloria_objetivo_);
         setCalorias_consumidas(calorias_consumidas_);
         ultima_fecha = ultima_fecha_;
@@ -89,6 +91,7 @@ public class Usuario {
         txt += nombre_usuario + ",";
         txt += Integer.toString(edad) + ",";
         txt += Integer.toString(altura) + ",";
+        txt += Integer.toString(peso) + ",";
         txt += Integer.toString(caloria_objetivo) + ",";
         txt += Integer.toString(calorias_consumidas) + ",";
         txt += ultima_fecha;
@@ -102,8 +105,10 @@ public class Usuario {
      * @param altura_ en cm
      * @param caloria_objetivo_ del día
      */
-    public void setDatos(int edad_, int altura_, int caloria_objetivo_){
+    public void setDatos(String nombre_usuario_, int edad_, int altura_, int peso_, int caloria_objetivo_){
+    	setNombre_usuario(nombre_usuario_);
         setEdad(edad_);
+        peso = peso_;
         setAltura(altura_);
         setCaloria_objetivo(caloria_objetivo_);
     }

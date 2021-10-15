@@ -53,10 +53,11 @@ public class Archivos {
                 String nombre_u = data[0];
                 int edad = Integer.valueOf(data[1]);
                 int altura = Integer.valueOf(data[2]);
-                int caloria_objetivo = Integer.valueOf(data[3]);
-                int calorias_consumidas = Integer.valueOf(data[4]);
+                int peso = Integer.valueOf(data[3]);
+                int caloria_objetivo = Integer.valueOf(data[4]);
+                int calorias_consumidas = Integer.valueOf(data[5]);
                 String fecha = data[5];
-                usuarios.add(new Usuario(nombre_u, edad, altura, caloria_objetivo, calorias_consumidas, fecha));
+                usuarios.add(new Usuario(nombre_u, edad, altura, peso, caloria_objetivo, calorias_consumidas, fecha));
             }
             reader.close();
         } catch (IOException e){ }

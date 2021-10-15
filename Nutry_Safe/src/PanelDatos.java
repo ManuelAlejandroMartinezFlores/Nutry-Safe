@@ -1,4 +1,4 @@
-package Paneles;
+
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -83,6 +83,7 @@ public class PanelDatos extends JPanel{
 				int meta = Integer.valueOf(meta_tf.getText());
 				int peso = Integer.valueOf(peso_tf.getText());
 				Interfaz.actualizarDatos(id, nombre_usuario, edad, altura, peso, meta);
+				setVisible(false);
 			}
 		});
 		aceptar_b.setBounds(217, 232, 117, 29);

@@ -1,4 +1,4 @@
-package Paneles;
+
 
 import javax.swing.*;
 import java.awt.event.ActionListener;

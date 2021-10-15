@@ -2,20 +2,20 @@ import javax.swing.*;
 import java.awt.Dimension;
 import Paneles.*;
 
-public class Interfaz extends JFrame {
+import java.util.ArrayList;
+
+public class Interfaz {
 	
 	public Interfaz() {
 		super();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setPreferredSize(new Dimension(500,300));
-		PanelDatos p = new PanelDatos();
-		p.setOpaque(true);
 		
-		setContentPane(p);
-
-        //Display the window.
-        pack();
-        setVisible(true);
+		
+	}
+	
+	public static void actualizarDatos(int id, String nombre_usuario_, int edad_, int altura_, int peso_, int caloria_objetivo_) {
+		ArrayList<Usuario> usuarios = Archivos.Leyendo();
+		usuarios.get(id).setDatos( nombre_usuario_,  edad_,  altura_,  peso_,  caloria_objetivo_);
+		Archivos.Escribiendo(usuarios);
 		
 	}
 	

@@ -211,4 +211,8 @@ public class Usuario {
     public String getUltima_fecha() {
         return ultima_fecha;
     }
+
+	public int getPeso() {
+		return peso;
+	}
 }

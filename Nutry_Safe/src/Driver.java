@@ -195,9 +195,9 @@ public class Driver {
     public static void createAndShowGUI() {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(500,300));
-		PanelGeneral p = new PanelGeneral(0);
-		p.setOpaque(true);
+		frame.setPreferredSize(new Dimension(500,375));
+		PanelIngreso p = new PanelIngreso();
+		p.setOpaque(false);
 		
 		frame.setContentPane(p);
 

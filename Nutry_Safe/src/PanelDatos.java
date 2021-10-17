@@ -74,6 +74,8 @@ public class PanelDatos extends JPanel{
 		add(peso_tf);
 		peso_tf.setColumns(10);
 		
+		mostrarDatosTF();
+		
 		JLabel error_l = new JLabel("");
 		error_l.setBounds(178, 242, 184, 16);
 		add(error_l);
@@ -88,16 +90,23 @@ public class PanelDatos extends JPanel{
 					int meta = Integer.valueOf(meta_tf.getText());
 					int peso = Integer.valueOf(peso_tf.getText());
 					Controlador.actualizarDatos(id, nombre_usuario, edad, altura, peso, meta);
-					setVisible(false);
-					error_l.setText("");
+					error_l.setText("Éxito");
+					mostrarDatosTF();
 				} catch (Exception ex) {
 					error_l.setText("Error en ingreso de datos");
+					mostrarDatosTF();
 				}
 			}
 		});
 		aceptar_b.setBounds(217, 199, 117, 29);
 		add(aceptar_b);
-		
-		
+	}
+	
+	public void mostrarDatosTF() {
+		nombre_tf.setText(Controlador.nombreUsuario(id));
+		altura_tf.setText(Integer.toString(Controlador.alturaUsuario(id)));
+		edad_tf.setText(Integer.toString(Controlador.edadUsuario(id)));
+		meta_tf.setText(Integer.toString(Controlador.calMetaUsuario(id)));
+		peso_tf.setText(Integer.toString(Controlador.pesoUsuario(id)));
 	}
 }

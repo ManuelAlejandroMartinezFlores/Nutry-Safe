@@ -55,4 +55,24 @@ public class Controlador {
 		usuarios.get(id).contarCaloria(caloria);
 		Archivos.Escribiendo(usuarios);
 	}
+	
+	public static String nombreUsuario(int id) {
+		ArrayList<Usuario> usuarios = Archivos.Leyendo();
+		return usuarios.get(id).getNombre_usuario();
+	}
+	
+	public static int edadUsuario(int id) {
+		ArrayList<Usuario> usuarios = Archivos.Leyendo();
+		return usuarios.get(id).getEdad();
+	}
+	
+	public static int alturaUsuario(int id) {
+		ArrayList<Usuario> usuarios = Archivos.Leyendo();
+		return usuarios.get(id).getAltura();
+	}
+	
+	public static int pesoUsuario(int id) {
+		ArrayList<Usuario> usuarios = Archivos.Leyendo();
+		return usuarios.get(id).getPeso();
+	}
 }

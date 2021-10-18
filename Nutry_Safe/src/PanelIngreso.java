@@ -11,6 +11,8 @@ public class PanelIngreso extends JPanel {
 	 */
 	private static final long serialVersionUID = -2305229489239812396L;
 	int id;
+	PanelGeneral panel;
+	JButton salir_b;
 
 	public PanelIngreso() {
 		super();
@@ -21,12 +23,12 @@ public class PanelIngreso extends JPanel {
 		
 		// No tocar
 		
-//		PanelGeneral panel = new PanelGeneral(id);
+//		panel = new PanelGeneral(id);
 //		panel.setBounds(0, 0, 500, 300);
 //		panel.setVisible(false);
 //		add(panel);
 //		
-//		JButton salir_b = new JButton("Salir");
+//		salir_b = new JButton("Salir");
 //		salir_b.setBounds(10, 304, 117, 29);
 //		salir_b.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
@@ -36,9 +38,18 @@ public class PanelIngreso extends JPanel {
 //		});
 //		salir_b.setVisible(false);
 //		add(salir_b);
-		
-		
-		
+//		
+//		mostrarGeneral();
 	}
-
+//	
+//	public void mostrarGeneral() {
+//		remove(panel);
+//		panel = new PanelGeneral(id);
+//		panel.setBounds(0, 0, 500, 300);
+//		panel.setVisible(true);
+//		add(panel);
+//		panel.revalidate();
+//		panel.repaint();
+//		salir_b.setVisible(true);
+//	}
 }

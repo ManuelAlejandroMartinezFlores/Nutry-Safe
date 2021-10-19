@@ -41,7 +41,7 @@ public class PanelIngreso extends JPanel {
 //		
 //		mostrarGeneral();
 	}
-//	
+	
 //	public void mostrarGeneral() {
 //		remove(panel);
 //		panel = new PanelGeneral(id);

@@ -15,13 +15,16 @@ public class PanelDatos extends JPanel{
 	private JTextField edad_tf;
 	private JTextField meta_tf;
 	private JTextField peso_tf;
+	JLabel error_l;
 	
 	String id;
+	String[] usuario;
 
 	public PanelDatos(String id_) {
 		super();
 		
 		id = id_;
+		usuario = Controlador.getUsuario(id);
 		
 		setLayout(null);
 		
@@ -76,26 +79,14 @@ public class PanelDatos extends JPanel{
 		
 		mostrarDatosTF();
 		
-		JLabel error_l = new JLabel("");
+		error_l = new JLabel("");
 		error_l.setBounds(178, 242, 184, 16);
 		add(error_l);
 		
 		JButton aceptar_b = new JButton("Aceptar");
 		aceptar_b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					String nombre_usuario = nombre_tf.getText();
-					int edad = Integer.valueOf(edad_tf.getText());
-					int altura = Integer.valueOf(altura_tf.getText());
-					int meta = Integer.valueOf(meta_tf.getText());
-					int peso = Integer.valueOf(peso_tf.getText());
-					Controlador.actualizarDatos(id, nombre_usuario, edad, altura, peso, meta);
-					error_l.setText("Éxito");
-					mostrarDatosTF();
-				} catch (Exception ex) {
-					error_l.setText("Error en ingreso de datos");
-					mostrarDatosTF();
-				}
+				actualizarDatos();
 			}
 		});
 		aceptar_b.setBounds(217, 199, 117, 29);
@@ -103,10 +94,26 @@ public class PanelDatos extends JPanel{
 	}
 	
 	public void mostrarDatosTF() {
-		nombre_tf.setText(Controlador.nombreUsuario(id));
-		altura_tf.setText(Integer.toString(Controlador.alturaUsuario(id)));
-		edad_tf.setText(Integer.toString(Controlador.edadUsuario(id)));
-		meta_tf.setText(Integer.toString(Controlador.calMetaUsuario(id)));
-		peso_tf.setText(Integer.toString(Controlador.pesoUsuario(id)));
+		nombre_tf.setText(usuario[0]);
+		altura_tf.setText(usuario[2]);
+		edad_tf.setText(usuario[1]);
+		meta_tf.setText(usuario[4]);
+		peso_tf.setText(usuario[3]);
+	}
+
+	public void actualizarDatos(){
+		try {
+			String nombre_usuario = nombre_tf.getText();
+			int edad = Integer.valueOf(edad_tf.getText());
+			int altura = Integer.valueOf(altura_tf.getText());
+			int meta = Integer.valueOf(meta_tf.getText());
+			int peso = Integer.valueOf(peso_tf.getText());
+			usuario = Controlador.actualizarDatos(id, nombre_usuario, edad, altura, peso, meta);
+			error_l.setText("Éxito");
+			mostrarDatosTF();
+		} catch (Exception ex) {
+			error_l.setText("Error en ingreso de datos");
+			mostrarDatosTF();
+		}
 	}
 }

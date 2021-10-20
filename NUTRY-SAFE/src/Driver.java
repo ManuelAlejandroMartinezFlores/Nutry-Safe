@@ -180,16 +180,17 @@ public class Driver {
 //        }
 //        scan.close();
 //    	
-    	// javax.swing.SwingUtilities.invokeLater(new Runnable() {
-        //     public void run() {
-        //     	try {
-        //     		createAndShowGUI();
-        //     	} catch (Exception e) {
-        //     		e.printStackTrace();
-        //     	}
-        //     }
-        // });
 
+
+    	javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+            	try {
+            		createAndShowGUI();
+            	} catch (Exception e) {
+            		e.printStackTrace();
+            	}
+            }
+        });
 
     } 
     

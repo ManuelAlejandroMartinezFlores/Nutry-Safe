@@ -1,6 +1,7 @@
 
 
 import javax.swing.*;
+import java.awt.Font;
 
 public class PanelConsejos extends JPanel {
 	
@@ -15,9 +16,17 @@ public class PanelConsejos extends JPanel {
 		setLayout(null);
 		id = id_;
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(169, 45, 61, 16);
-		add(lblNewLabel);
+		JLabel titulo_l = new JLabel("Consejos");
+		titulo_l.setBounds(42, 21, 61, 16);
+		add(titulo_l);
+
+		JTextPane textPane = new JTextPane();
+		Font f = new Font(Font.SANS_SERIF, 1, 10);
+		textPane.setFont(f);
+		textPane.setText(Controlador.darConsejo(id));
+		textPane.setBounds(6, 48, 291, 98);
+		add(textPane);
+		
 		
 		
 	}

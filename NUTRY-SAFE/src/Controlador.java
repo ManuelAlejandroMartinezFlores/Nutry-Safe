@@ -5,30 +5,17 @@ import com.mongodb.client.MongoDatabase;
 public class Controlador {
 	
 	
-	public static void actualizarDatos(String id, String nombre, int edad_, int altura_, int peso_,
-										int caloria_objetivo_) throws Exception {
+	public static String[] actualizarDatos(String id, String nombre, int edad, int altura, int peso,
+										int caloria_objetivo) throws Exception {
 		
-		if (nombre.length() == 0 || edad_ < 0 || altura_ < 0 || peso_ < 0 || caloria_objetivo_ < 0) {
+		if (nombre.length() == 0 || edad < 0 || altura < 0 || peso < 0 || caloria_objetivo < 0) {
 			throw new Exception();
 		}
-		Usuario usuario = MongoDB.getUsuario(id);
-		usuario.setDatos(nombre,  edad_,  altura_,  peso_,  caloria_objetivo_);
-		MongoDB.escribirUsuario(usuario);
+		return  MongoDB.actualizarDatos(id, nombre, edad, altura, peso, caloria_objetivo).split(",");
 	}
 	
-	public static boolean usuarioExiste(String usuario) {
-		return MongoDB.usuarioExiste(usuario);
-	}
-	
-	public static String getIdUsuarioEx(String nombre) {
-		return MongoDB.getIdUsuario(nombre);
-	}
-
-	public static String getIdUsuarioNu(String nombre) {
-		String id = MongoDB.nuevoId();
-		Usuario usuario = new Usuario(nombre, id);
-		MongoDB.escribirUsuario(usuario);
-		return id;
+	public static String getIdUsuario(String nombre, boolean nuevo) {
+		return MongoDB.getIdUsuario(nombre, nuevo);
 	}
 	
 	public static int calDisponiblesUsuario(String id) {
@@ -41,10 +28,12 @@ public class Controlador {
 		return usuario.getCaloria_objetivo();
 	}
 	
-	public static void contarCalUsuario(String id, int caloria) {
-		Usuario usuario = MongoDB.getUsuario(id);
-		usuario.contarCaloria(caloria);
-		MongoDB.escribirUsuario(usuario);
+	public static Integer[] contarCalUsuario(String id, int caloria) {
+		return MongoDB.contarCaloria(id, caloria);
+	}
+
+	public static Integer[] getCalorias(String id) {
+		return MongoDB.getCalorias(id);
 	}
 	
 	public static String nombreUsuario(String id) {
@@ -66,4 +55,38 @@ public class Controlador {
 		Usuario usuario = MongoDB.getUsuario(id);
 		return usuario.getPeso();
 	}
+
+	public static String[] getUsuario(String id) {
+		return MongoDB.getUsuario(id).toString().split(",");
+	}
+
+	private static Integer[] getEdadCaloria(String id){
+		String[] data = getUsuario(id); 
+		Integer[] resultado = new Integer[2];
+		resultado[0] = Integer.valueOf(data[1]);
+		resultado[1] = Integer.valueOf(data[4]);
+		return resultado;
+	}
+
+	public static String darConsejo(String id) {
+		Integer[] data = getEdadCaloria(id);
+		return Receta.darConsejo(data[0], data[1]);
+	}
+
+	public static String recetaCalorias(String id) {
+		int caloria_obj = MongoDB.calMetaUsuario(id);
+		return Receta.recetaCalorias(caloria_obj);
+	}
+
+	public static String inicioSesion(String nombre, boolean nuevo) throws Exception {
+		if (nombre.length() == 0){
+			throw new Exception();
+		}
+		String id = getIdUsuario(nombre, nuevo);
+		if (id.length() == 0) {
+			throw new Exception();
+		}
+		return id;
+	} 
+
 }

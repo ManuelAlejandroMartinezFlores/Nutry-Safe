@@ -52,6 +52,7 @@ public class Usuario {
         setCalorias_consumidas(0);
         ultima_fecha = LocalDate.now().toString();
         id = id_;
+        peso = 170;
     }
 
     /**

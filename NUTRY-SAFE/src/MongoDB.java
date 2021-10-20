@@ -5,17 +5,10 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.MongoClientSettings;
-import com.mongodb.BasicDBObject;
 import com.mongodb.ConnectionString;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
-import com.mongodb.ServerAddress;
-import com.mongodb.MongoCredential;
-import com.mongodb.MongoClientOptions;
 import com.mongodb.client.MongoDatabase;
 
 import org.bson.Document;
-import static com.mongodb.client.model.Filters.eq;
 import org.bson.types.ObjectId;
 
 public class MongoDB {

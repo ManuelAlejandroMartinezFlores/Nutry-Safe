@@ -9,9 +9,9 @@ public class PanelCalorias extends JPanel{
 	 */
 	private static final long serialVersionUID = 6672415721443347853L;
 	
-	int id;
+	String id;
 
-	public PanelCalorias(int id_) {
+	public PanelCalorias(String id_) {
 		super();
 		setLayout(null);
 		id = id_;

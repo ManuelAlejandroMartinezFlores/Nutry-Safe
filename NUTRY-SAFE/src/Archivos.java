@@ -25,13 +25,14 @@ public class Archivos {
         
         try{
             // En caso de que el archivo.txt no exista, se crea
-            File datosU= new File("src/Data/Usuarios.txt");
+            File datosU= new File("src/Usuarios.txt");
             datosU.createNewFile();
             // Se guardan los datos en el archivo correspondiente
             FileWriter myWriter = new FileWriter(datosU,false);
             String txt = "";
             for (int i=0; i<usuarios.size(); i++){
                 txt += usuarios.get(i).toString() + "\n";
+                System.out.println(txt);
     
             }
             myWriter.write(txt);
@@ -47,9 +48,9 @@ public class Archivos {
      */
     public static ArrayList<Usuario> Leyendo(){
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-        Path path = Paths.get("src/Data/Usuarios.txt");
+        Path path = Paths.get("Usuarios.txt");
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(path.toString()));
+            BufferedReader reader = new BufferedReader(new FileReader("src/Usuarios.txt"));
             String row;
             while ((row = reader.readLine()) != null){
                 String[] data = row.split(",");
@@ -60,10 +61,13 @@ public class Archivos {
                 int caloria_objetivo = Integer.valueOf(data[4]);
                 int calorias_consumidas = Integer.valueOf(data[5]);
                 String fecha = data[6];
-                usuarios.add(new Usuario(nombre_u, edad, altura, peso, caloria_objetivo, calorias_consumidas, fecha));
+                String id = data[7];
+                usuarios.add(new Usuario(nombre_u, edad, altura, peso, caloria_objetivo, calorias_consumidas, fecha, id));
             }
             reader.close();
-        } catch (IOException e){ }
+        } catch (IOException e){
+            System.out.println(e);
+         }
         
         return usuarios;
     }

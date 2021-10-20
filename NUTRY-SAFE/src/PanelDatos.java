@@ -16,9 +16,9 @@ public class PanelDatos extends JPanel{
 	private JTextField meta_tf;
 	private JTextField peso_tf;
 	
-	int id;
+	String id;
 
-	public PanelDatos(int id_) {
+	public PanelDatos(String id_) {
 		super();
 		
 		id = id_;

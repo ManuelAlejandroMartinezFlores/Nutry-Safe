@@ -8,12 +8,12 @@ public class PanelConsejos extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -3749871797146343742L;
-	int id;
+	String id;
 	
-	public PanelConsejos(int id_) {
+	public PanelConsejos(String id_) {
 		super();
 		setLayout(null);
-		int id = id_;
+		id = id_;
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setBounds(169, 45, 61, 16);

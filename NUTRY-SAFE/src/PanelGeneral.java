@@ -17,12 +17,13 @@ public class PanelGeneral extends JPanel {
 	private PanelReceta receta_p;
 	private PanelConsejos consejos_p;
 	private PanelCalorias calorias_p;
-	int id;
+	String id;
 	
 	
-	public PanelGeneral(int id){
+	public PanelGeneral(String id_){
 		super();
 		setLayout(null);
+		id = id_;
 		
 		datos_p = new PanelDatos(id);
 		datos_p.setBounds(151, 0, 349, 273);

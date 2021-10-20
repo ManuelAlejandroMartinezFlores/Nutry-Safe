@@ -16,6 +16,7 @@ public class Usuario {
     private int caloria_objetivo;
     private int calorias_consumidas;
     private String ultima_fecha;
+    String id;
 
 
     /**
@@ -28,7 +29,7 @@ public class Usuario {
      * @param ulitma_fecha_ en la que se inicio sesión
      */
     Usuario(String nombre_usuario_, int edad_, int altura_, int peso_, int caloria_objetivo_,
-            int calorias_consumidas_, String ultima_fecha_){
+            int calorias_consumidas_, String ultima_fecha_, String id_){
         setNombre_usuario(nombre_usuario_);
         setEdad(edad_);
         setAltura(altura_);
@@ -36,19 +37,21 @@ public class Usuario {
         setCaloria_objetivo(caloria_objetivo_);
         setCalorias_consumidas(calorias_consumidas_);
         ultima_fecha = ultima_fecha_;
+        id = id_;
     }
 
     /**
      * Constructor para usuario nuevo
      * @param nombre_usuario_ nombre usuario
      */
-    Usuario(String nombre_usuario_){
+    Usuario(String nombre_usuario_, String id_){
         setNombre_usuario(nombre_usuario_);
         setEdad(18);
         setAltura(160);
         setCaloria_objetivo(2000);
         setCalorias_consumidas(0);
         ultima_fecha = LocalDate.now().toString();
+        id = id_;
     }
 
     /**
@@ -94,7 +97,8 @@ public class Usuario {
         txt += Integer.toString(peso) + ",";
         txt += Integer.toString(caloria_objetivo) + ",";
         txt += Integer.toString(calorias_consumidas) + ",";
-        txt += ultima_fecha;
+        txt += ultima_fecha +",";
+        txt += id;
         return txt;
     }
 
@@ -215,4 +219,8 @@ public class Usuario {
 	public int getPeso() {
 		return peso;
 	}
+
+    public String getId() {
+        return id;
+    }
 }

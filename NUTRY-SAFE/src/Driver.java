@@ -180,16 +180,17 @@ public class Driver {
 //        }
 //        scan.close();
 //    	
-    	javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	try {
-            		createAndShowGUI();
-            	} catch (Exception e) {
-            		e.printStackTrace();
-            	}
-            }
-        });
- 
+    	// javax.swing.SwingUtilities.invokeLater(new Runnable() {
+        //     public void run() {
+        //     	try {
+        //     		createAndShowGUI();
+        //     	} catch (Exception e) {
+        //     		e.printStackTrace();
+        //     	}
+        //     }
+        // });
+
+
     } 
     
     public static void createAndShowGUI() {
@@ -204,15 +205,5 @@ public class Driver {
         //Display the window.
         frame.pack();
         frame.setVisible(true);
-//		frame.setDefaultCloseOperation(JEXIT_ON_CLOSE);
-//		frame.setPreferredSize(new Dimension(500,300));
-//		PanelDatos p = new PanelDatos();
-//		p.setOpaque(true);
-//		
-//		setContentPane(p);
-//
-//        //Display the window.
-//        pack();
-//        setVisible(true);
 	}
 }

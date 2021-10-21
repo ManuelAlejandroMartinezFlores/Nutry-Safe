@@ -30,21 +30,6 @@ public class PanelGeneral extends JPanel {
 		datos_p.setVisible(true);
 		add(datos_p);
 		
-		// consejos_p = new PanelConsejos(id);
-		// consejos_p.setBounds(151, 0, 349, 273);
-		// consejos_p.setVisible(false);
-		// add(consejos_p);
-		
-		// receta_p = new PanelReceta(id);
-		// receta_p.setBounds(151, 0, 349, 273);
-		// receta_p.setVisible(false);
-		// add(receta_p);
-		
-		// calorias_p = new PanelCalorias(id);
-		// calorias_p.setBounds(151, 0, 349, 273);
-		// calorias_p.setVisible(false);
-		// add(calorias_p);
-		
 		JLabel opciones_l = new JLabel("Opciones");
 		opciones_l.setBounds(22, 21, 61, 16);
 		add(opciones_l);

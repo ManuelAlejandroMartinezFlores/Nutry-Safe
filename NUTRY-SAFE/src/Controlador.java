@@ -14,15 +14,15 @@ public class Controlador {
 		return MongoDB.getIdUsuario(nombre, nuevo);
 	}
 	
-	public static int calDisponiblesUsuario(String id) {
-		Usuario usuario = MongoDB.getUsuario(id);
-		return usuario.getCaloriaDisponible();
-	}
+	// public static int calDisponiblesUsuario(String id) {
+	// 	Usuario usuario = MongoDB.getUsuario(id);
+	// 	return usuario.getCaloriaDisponible();
+	// }
 	
-	public static int calMetaUsuario(String id) {
-		Usuario usuario = MongoDB.getUsuario(id);
-		return usuario.getCaloria_objetivo();
-	}
+	// public static int calMetaUsuario(String id) {
+	// 	Usuario usuario = MongoDB.getUsuario(id);
+	// 	return usuario.getCaloria_objetivo();
+	// }
 	
 	public static Integer[] contarCalUsuario(String id, int caloria) {
 		return MongoDB.contarCaloria(id, caloria);
@@ -32,25 +32,25 @@ public class Controlador {
 		return MongoDB.getCalorias(id);
 	}
 	
-	public static String nombreUsuario(String id) {
-		Usuario usuario = MongoDB.getUsuario(id);
-		return usuario.getNombre_usuario();
-	}
+	// public static String nombreUsuario(String id) {
+	// 	Usuario usuario = MongoDB.getUsuario(id);
+	// 	return usuario.getNombre_usuario();
+	// }
 	
-	public static int edadUsuario(String id) {
-		Usuario usuario = MongoDB.getUsuario(id);
-		return usuario.getEdad();
-	}
+	// public static int edadUsuario(String id) {
+	// 	Usuario usuario = MongoDB.getUsuario(id);
+	// 	return usuario.getEdad();
+	// }
 	
-	public static int alturaUsuario(String id) {
-		Usuario usuario = MongoDB.getUsuario(id);
-		return usuario.getAltura();
-	}
+	// public static int alturaUsuario(String id) {
+	// 	Usuario usuario = MongoDB.getUsuario(id);
+	// 	return usuario.getAltura();
+	// }
 	
-	public static int pesoUsuario(String id) {
-		Usuario usuario = MongoDB.getUsuario(id);
-		return usuario.getPeso();
-	}
+	// public static int pesoUsuario(String id) {
+	// 	Usuario usuario = MongoDB.getUsuario(id);
+	// 	return usuario.getPeso();
+	// }
 
 	public static String[] getUsuario(String id) {
 		return MongoDB.getUsuario(id).toString().split(",");

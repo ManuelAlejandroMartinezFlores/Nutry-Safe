@@ -5,4 +5,4 @@
 - `src`: contiene el código en archivos .java
 - `lib`: contiene las dependencias
 - `bin`: contiene los archivos .class compilados
-- `.vscode`: contiene la configuración del proyecto 
+- `.vscode`: contiene la configuración del proyecto VisualCode

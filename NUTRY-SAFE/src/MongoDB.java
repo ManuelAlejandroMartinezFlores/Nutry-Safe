@@ -1,8 +1,5 @@
-import java.util.ArrayList;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ConnectionString;
@@ -12,21 +9,6 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 public class MongoDB {
-    
-    // public static void Escribiendo(ArrayList<Usuario> usuarios){
-    //     MongoCollection<Document> collection = getCollection();
-
-    //     for (Usuario usuario : usuarios){
-    //         try {
-    //             collection.insertOne(usuarioToDoc(usuario));
-    //         } catch (Exception e) {
-    //             Document query = new Document("_id", new ObjectId(usuario.getId()));
-    //             collection.deleteOne(query);
-    //             collection.insertOne(usuarioToDoc(usuario));
-    //         }
-    //     }
-
-    // }
 
     private static Document usuarioToDoc(Usuario usuario){
         Document objeto = new Document("_id", new ObjectId(usuario.getId()))
@@ -52,26 +34,6 @@ public class MongoDB {
         String id = doc.getObjectId("_id").toHexString();
         return new Usuario(nombre, edad, altura, peso, cal_obj, cal_con, fecha, id);
     }
-
-    // public static ArrayList<Usuario> Leyendo(){
-    //     ConnectionString connectionString = new ConnectionString("mongodb+srv://admin:admin@nutrysafe.htrby.mongodb.net/NutrySafe?retryWrites=true&w=majority");
-    //     MongoClientSettings settings = MongoClientSettings.builder()
-    //                                                         .applyConnectionString(connectionString)
-    //                                                         .build();
-    //     MongoClient mongoClient = MongoClients.create(settings);
-    //     MongoDatabase database = mongoClient.getDatabase("Usuarios");
-
-    //     FindIterable<Document> mydatabaserecords = database.getCollection("usuarios").find();
-    //     MongoCursor<Document> iterator = mydatabaserecords.iterator();
-
-    //     ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-    //     while (iterator.hasNext()) {
-    //         Document doc = iterator.next();
-    //         usuarios.add(docToUsuario(doc));
-    //     }
-    //     return usuarios;
-    // }
-    
 
     public static Usuario getUsuario(String id){
         MongoCollection<Document> collection = getCollection();
@@ -110,13 +72,6 @@ public class MongoDB {
         }
         
     }
-
-    // public static boolean usuarioExiste(String nombre){
-    //     MongoCollection<Document> collection = getCollection();
-
-    //     long count = collection.countDocuments(new Document("nombre_usuario", new Document("$eq", nombre)));
-    //     return count >= 1;
-    // }
 
     public static String actualizarDatos(String id, String nombre, int edad, int altura, int peso, int cal_obj) {
         MongoCollection<Document> collection = getCollection();

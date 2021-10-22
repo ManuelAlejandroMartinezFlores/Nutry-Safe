@@ -4,7 +4,7 @@
 
 
 ## Contenido
-+ NUTRY-SAFE: contiene el software del programa
++ `NUTRY-SAFE`: contiene el software del programa
 
 ## Requerimientos
 + MongoDB instalado: https://docs.mongodb.com/manual/installation/

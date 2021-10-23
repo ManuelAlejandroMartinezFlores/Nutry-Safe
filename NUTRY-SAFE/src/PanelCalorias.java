@@ -20,7 +20,10 @@ public class PanelCalorias extends JPanel{
 	JLabel ind_con;
 	JLabel error_l;
 
-
+	/**
+	 * Muestra y lleva un control de las calorías ingresadas por el usuario
+	 * @param id_
+	 */
 	public PanelCalorias(String id_) {
 		super();
 		setLayout(null);
@@ -78,7 +81,9 @@ public class PanelCalorias extends JPanel{
 		error_l.setBounds(90, 244, 172, 16);
 		add(error_l);
 	}
-
+	/**
+	 * Lleva la cuenta de las calorías
+	 */
 	public void contarCaloria(){
 		try {
 			int cal = Integer.valueOf(textField.getText());

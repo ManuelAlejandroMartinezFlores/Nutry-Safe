@@ -4,7 +4,7 @@
  * Interactua con el usuario mostrando y recibiendo mensajes.
  * Funciona como menú del programa.
  * 
- * @version Entrega 1
+ * @version Entrega 2
  */
 
 import java.awt.Dimension;

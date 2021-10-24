@@ -1,5 +1,6 @@
-
-
+/**
+ * Se importan las librerías a utilizar 
+ */
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +8,7 @@ import java.awt.event.ActionListener;
 public class PanelIngreso extends JPanel {
 	
 	/**
-	 * 
+	 * atributos de la clase.
 	 */
 	private static final long serialVersionUID = -2305229489239812396L;
 	String id;
@@ -20,9 +21,10 @@ public class PanelIngreso extends JPanel {
 	JLabel ingreso_l;
 	JButton nuevo_b;
 	JButton existente_b;
-
-
-
+	
+	/**
+	 *  diseño de como se observa el panel de ingreso (inicio de la app).
+	 */
 	public PanelIngreso() {
 		super();
 		id = "616f52297811334c6758a1c2";
@@ -83,7 +85,11 @@ public class PanelIngreso extends JPanel {
 		salir_b.setVisible(false);
 		add(salir_b);
 	}
-
+	
+	/**
+	 *  @return void
+	 * Método para usuario nuevo
+	 */
 	public void usuarioNuevo() {
 		try {
 			id = Controlador.inicioSesion(textField.getText(), true);
@@ -95,7 +101,11 @@ public class PanelIngreso extends JPanel {
 			id = "616f52297811334c6758a1c2";
 		}
 	}
-
+	
+	/**
+	 *  @return void
+	 * Método para usuario existente
+	 */
 	public void usuarioExistente() {
 		try {
 			id = Controlador.inicioSesion(textField.getText(), false);
@@ -109,6 +119,10 @@ public class PanelIngreso extends JPanel {
 		}
 	}
 	
+	/**
+	 *  @return void
+	 * muestra  el panel general.
+	 */
 	public void mostrarGeneral() {
 		if (panel != null){
 			remove(panel);
@@ -130,7 +144,11 @@ public class PanelIngreso extends JPanel {
 		existente_b.setVisible(false);
 
 	}
-
+	
+	/**
+	 *  @return void
+	 * método para salir del app 
+	 */
 	public void salir(){
 		panel.setVisible(false);
 		salir_b.setVisible(false);

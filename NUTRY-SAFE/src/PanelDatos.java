@@ -1,5 +1,10 @@
 
-/**Se importan las librerías a utilizar */
+/**
+ * PanelDatos.
+ * Muestra la GUI para el ingreso de datos.
+ * 
+ * @version Entrega 3
+*/
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

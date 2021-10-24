@@ -1,5 +1,6 @@
-
-
+/**
+ * Se importan las librerías a utilizar
+ */
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -7,7 +8,7 @@ import java.awt.event.ActionEvent;
 public class PanelGeneral extends JPanel {
 	
 	/**
-	 * 
+	 * atributos de la clase
 	 */
 	private static final long serialVersionUID = 5751748113985052922L;
 
@@ -19,7 +20,10 @@ public class PanelGeneral extends JPanel {
 	private PanelCalorias calorias_p = null;
 	String id;
 	
-	
+	/**
+	 * @param id_
+	 * diseño del panel general
+	 */
 	public PanelGeneral(String id_){
 		super();
 		setLayout(null);
@@ -78,6 +82,10 @@ public class PanelGeneral extends JPanel {
 		
 	}
 	
+	/**
+	 * @return void
+	 * diseño del apartado de datos en el panel general.
+	 */
 	private void mostrarDatos() {
 		if (datos_p != null) {remove(datos_p);}
 		if (receta_p != null) {receta_p.setVisible(false);}
@@ -93,6 +101,10 @@ public class PanelGeneral extends JPanel {
 
 	}
 	
+	/**
+	 * @return void
+	 * diseño del apartado de recetas en el panel general.
+	 */
 	private void mostrarReceta() {
 		if (receta_p != null) {
 			remove(receta_p);
@@ -109,6 +121,10 @@ public class PanelGeneral extends JPanel {
 		receta_p.repaint();
 	}
 	
+	/**
+	 * @return void
+	 * diseño del apartado de consejos en el panel general.
+	 */
 	private void mostrarConsejos() {
 		if (consejos_p != null) {
 			remove(consejos_p);
@@ -125,6 +141,10 @@ public class PanelGeneral extends JPanel {
 		consejos_p.repaint();
 	}
 	
+	/**
+	 * @return void
+	 * diseño del apartado de calorías en el panel general.
+	 */
 	private void mostrarCalorias() {
 		if (calorias_p != null) {
 			remove(calorias_p);

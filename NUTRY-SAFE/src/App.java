@@ -11,7 +11,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 
-public class Driver {
+public class App {
     
     /** 
      * Contiene el menú del programa.

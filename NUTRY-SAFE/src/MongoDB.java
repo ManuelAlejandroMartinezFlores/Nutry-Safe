@@ -1,3 +1,10 @@
+/**
+ * MongoDB.
+ * Contiene la lógica para acceso a la nube y queries en la base de datos.
+ * 
+ * @version Entrega 3
+ */
+
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoClient;
@@ -11,6 +18,7 @@ import org.bson.types.ObjectId;
 public class MongoDB {
     
     /** 
+     * Transforma un Usuario a un Documento BSON
      * @param usuario
      * @return Document
      */
@@ -28,6 +36,7 @@ public class MongoDB {
     }
     
     /** 
+     * Transforma un documento BSON a un Usuario
      * @param doc
      * @return Usuario
      */
@@ -44,6 +53,7 @@ public class MongoDB {
     }
     
     /** 
+     * Obtiene un usuario a partir de un ID
      * @param id
      * @return Usuario
      */
@@ -54,11 +64,11 @@ public class MongoDB {
     }
     
     /** 
+     * Escribe un usuario en la nube
      * @param usuario
      * @param collection
      */
     private static void escribirUsuario(Usuario usuario, MongoCollection<Document> collection){
-        // MongoCollection<Document> collection = getCollection();
             try {
                 collection.insertOne(usuarioToDoc(usuario));
             } catch (Exception e) {
@@ -69,8 +79,10 @@ public class MongoDB {
     }
  
     /** 
+     * Obtiene el ID del usuario a partir del nombre.
+     * Si el usuario es nuevo lo crea
      * @param nombre
-     * @param nuevo
+     * @param nuevo si es nuevo o no
      * @return String
      */
     public static String getIdUsuario(String nombre, boolean nuevo){
@@ -95,6 +107,7 @@ public class MongoDB {
     }
     
      /** 
+     * Actualiza los datos del usuario en la nube
      * @param id
      * @param nombre
      * @param edad
@@ -115,6 +128,7 @@ public class MongoDB {
     }
     
     /** 
+     * Inicia sesión y obtiene la colección de documentos MongoDB
      * @return MongoCollection<Document>
      */
     private static MongoCollection<Document> getCollection(){
@@ -129,9 +143,10 @@ public class MongoDB {
     }
     
     /** 
+     * Realiza la acción de contarCaloria en la nube
      * @param id
      * @param caloria
-     * @return Integer[]
+     * @return Integer[] información de calorías
      */
     public static Integer[] contarCaloria(String id, int caloria) {
         MongoCollection<Document> collection = getCollection();
@@ -149,8 +164,9 @@ public class MongoDB {
     }
     
     /** 
+     * Indica información de calorías
      * @param id
-     * @return Integer[]
+     * @return Integer[] información de calorías
      */
     public static Integer[] getCalorias(String id) {
         MongoCollection<Document> collection = getCollection();
@@ -164,8 +180,9 @@ public class MongoDB {
         return data;
     }
     /** 
+     * Indica la caloría meta del usuario 
      * @param id
-     * @return int
+     * @return int caloría meta
      */
     public static int calMetaUsuario(String id){
         MongoCollection<Document> collection = getCollection();

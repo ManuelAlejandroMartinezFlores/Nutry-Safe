@@ -1,5 +1,8 @@
 /**
- * Se importan las librerías a utilizar
+ * PanelReceta.
+ * Muestra GUI para generar Recetas.
+ * 
+ * @version Entrega 3
  */
 
 import javax.swing.*;

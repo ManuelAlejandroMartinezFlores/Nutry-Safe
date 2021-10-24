@@ -1,4 +1,9 @@
-
+/**
+ * PanelCalorias.
+ * Muestra la GUI para control de calorías.
+ * 
+ * @version Entrega 3
+ */
 
 import javax.swing.*;
 import java.awt.event.ActionListener;

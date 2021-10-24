@@ -1,4 +1,9 @@
-/**Se importan las librerías a utilizar */
+/**
+ * PanelConsejos.
+ * Muestra la GUI para generar consejos.
+ * 
+ * @version Entrega 3
+ */
 
 import javax.swing.*;
 import java.awt.Font;

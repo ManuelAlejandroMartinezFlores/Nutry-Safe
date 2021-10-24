@@ -1,5 +1,8 @@
 /**
- * Se importan las librerías a utilizar
+ * PanelGeneral.
+ * Contiene paneles y un menú para navegarlos.
+ * 
+ * @version Entrega 3
  */
 import javax.swing.*;
 import java.awt.event.ActionListener;

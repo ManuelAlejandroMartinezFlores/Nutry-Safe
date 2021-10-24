@@ -1,3 +1,10 @@
+/**
+ * Controlador.
+ * Contiene la lógica de las operaciones de la aplicación
+ * 
+ * @version Entrega 3 
+ */
+
 public class Controlador {
 	
 	/** 
@@ -7,7 +14,7 @@ public class Controlador {
 	 * @param altura
 	 * @param peso
 	 * @param caloria_objetivo
-	 * @return String[]
+	 * @return String[] información del usuario
 	 * @throws Exception
 	 */
 	public static String[] actualizarDatos(String id, String nombre, int edad, int altura, int peso,
@@ -20,8 +27,9 @@ public class Controlador {
 	}
 	
 	/** 
+	 * Indica el id del usuario en la base de datos
 	 * @param nombre
-	 * @param nuevo
+	 * @param nuevo si es nuevo usuario o no
 	 * @return String
 	 */
 	public static String getIdUsuario(String nombre, boolean nuevo) {
@@ -29,23 +37,26 @@ public class Controlador {
 	}
 
 	/** 
+	 * Añade caloría al control del usuario.
 	 * @param id
 	 * @param caloria
-	 * @return Integer[]
+	 * @return Integer[] información de calorias 
 	 */
 	public static Integer[] contarCalUsuario(String id, int caloria) {
 		return MongoDB.contarCaloria(id, caloria);
 	}
 	
 	/** 
+	 * Indica la información de calorias
 	 * @param id
-	 * @return Integer[]
+	 * @return Integer[] información de calorias
 	 */
 	public static Integer[] getCalorias(String id) {
 		return MongoDB.getCalorias(id);
 	}
 	
-	/** 
+	/**
+	 * Indica la información del usuario 
 	 * @param id
 	 * @return String[]
 	 */
@@ -54,8 +65,9 @@ public class Controlador {
 	}
 	
 	/** 
+	 * Indica la edad y calorias objetivo del usuario
 	 * @param id
-	 * @return Integer[]
+	 * @return Integer[] edad y calorias
 	 */
 	private static Integer[] getEdadCaloria(String id){
 		String[] data = getUsuario(id); 
@@ -66,8 +78,9 @@ public class Controlador {
 	}
 	
 	/** 
+	 * Genera un consejo para el usuario
 	 * @param id
-	 * @return String
+	 * @return String consejo del usuario
 	 */
 	public static String darConsejo(String id) {
 		Integer[] data = getEdadCaloria(id);
@@ -75,8 +88,9 @@ public class Controlador {
 	}
 	
 	/** 
+	 * Genera una receta para el usuario
 	 * @param id
-	 * @return String
+	 * @return String Receta
 	 */
 	public static String recetaCalorias(String id) {
 		int caloria_obj = MongoDB.calMetaUsuario(id);
@@ -84,10 +98,11 @@ public class Controlador {
 	}
 	
 	/** 
+	 * Inicia seción
 	 * @param nombre
-	 * @param nuevo
-	 * @return String
-	 * @throws Exception
+	 * @param nuevo si es usuario nuevo
+	 * @return String id de usuario
+	 * @throws Exception si desea crear un usuario que ya existe o acceder a uno que no existe
 	 */
 	public static String inicioSesion(String nombre, boolean nuevo) throws Exception {
 		if (nombre.length() == 0){

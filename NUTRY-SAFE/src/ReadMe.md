@@ -26,4 +26,4 @@ en la clase usuario.
 + `PanelReceta.java`: muestra la interfaz gráfica con una receta personalizada para el usuario
 
 ## Driver
-+ `Driver.java`: contiene el método main
++ `App.java`: contiene el método main

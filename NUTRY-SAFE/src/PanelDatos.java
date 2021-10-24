@@ -1,5 +1,5 @@
 
-
+/**Se importan las librerías a utilizar */
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 public class PanelDatos extends JPanel{
 	
 	/**
-	 * 
+	 * atributos de la clase para los text fields del GUI del panel de datos. 
 	 */
 	private static final long serialVersionUID = -7501157757070073220L;
 	private JTextField nombre_tf;
@@ -19,7 +19,11 @@ public class PanelDatos extends JPanel{
 	
 	String id;
 	String[] usuario;
-
+	
+	/**
+	 *  @param id_ 
+	 * Es el diseño de como se observa el panel de datos de los usuarios. 
+	 */
 	public PanelDatos(String id_) {
 		super();
 		
@@ -93,6 +97,10 @@ public class PanelDatos extends JPanel{
 		add(aceptar_b);
 	}
 	
+	/**
+	 *  @return void
+	 * Muestra los datos (altura, nombre, edad, meta & peso) al usuario en el GUI. 
+	 */
 	public void mostrarDatosTF() {
 		nombre_tf.setText(usuario[0]);
 		altura_tf.setText(usuario[2]);
@@ -100,7 +108,11 @@ public class PanelDatos extends JPanel{
 		meta_tf.setText(usuario[4]);
 		peso_tf.setText(usuario[3]);
 	}
-
+	
+	/**
+	 *  @return void
+	 * Es la actualización de los datos según como lo desee el usuario.
+	 */
 	public void actualizarDatos(){
 		try {
 			String nombre_usuario = nombre_tf.getText();

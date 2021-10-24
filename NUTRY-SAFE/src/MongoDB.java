@@ -9,7 +9,11 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 public class MongoDB {
-
+    
+    /** 
+     * @param usuario
+     * @return Document
+     */
     private static Document usuarioToDoc(Usuario usuario){
         Document objeto = new Document("_id", new ObjectId(usuario.getId()))
                                             .append("nombre_usuario", usuario.getNombre_usuario())
@@ -22,7 +26,11 @@ public class MongoDB {
 
         return objeto;
     }
-
+    
+    /** 
+     * @param doc
+     * @return Usuario
+     */
     private static Usuario docToUsuario(Document doc){
         String nombre = doc.getString("nombre_usuario");
         int edad = doc.getInteger("edad");
@@ -34,13 +42,21 @@ public class MongoDB {
         String id = doc.getObjectId("_id").toHexString();
         return new Usuario(nombre, edad, altura, peso, cal_obj, cal_con, fecha, id);
     }
-
+    
+    /** 
+     * @param id
+     * @return Usuario
+     */
     public static Usuario getUsuario(String id){
         MongoCollection<Document> collection = getCollection();
         Document query = new Document("_id", new ObjectId(id));
         return docToUsuario(collection.find(query).iterator().next());
     }
-
+    
+    /** 
+     * @param usuario
+     * @param collection
+     */
     private static void escribirUsuario(Usuario usuario, MongoCollection<Document> collection){
         // MongoCollection<Document> collection = getCollection();
             try {
@@ -51,7 +67,12 @@ public class MongoDB {
                 collection.insertOne(usuarioToDoc(usuario));
             }
     }
-
+ 
+    /** 
+     * @param nombre
+     * @param nuevo
+     * @return String
+     */
     public static String getIdUsuario(String nombre, boolean nuevo){
         MongoCollection<Document> collection = getCollection();
 
@@ -72,7 +93,16 @@ public class MongoDB {
         }
         
     }
-
+    
+     /** 
+     * @param id
+     * @param nombre
+     * @param edad
+     * @param altura
+     * @param peso
+     * @param cal_obj
+     * @return String
+     */
     public static String actualizarDatos(String id, String nombre, int edad, int altura, int peso, int cal_obj) {
         MongoCollection<Document> collection = getCollection();
 
@@ -83,7 +113,10 @@ public class MongoDB {
         escribirUsuario(usuario, collection);
         return usuario.toString();
     }
-
+    
+    /** 
+     * @return MongoCollection<Document>
+     */
     private static MongoCollection<Document> getCollection(){
         ConnectionString connectionString = new ConnectionString("mongodb+srv://admin:admin@nutrysafe.htrby.mongodb.net/NutrySafe?retryWrites=true&w=majority");
         MongoClientSettings settings = MongoClientSettings.builder()
@@ -94,7 +127,12 @@ public class MongoDB {
         
         return database.getCollection("usuarios");
     }
-
+    
+    /** 
+     * @param id
+     * @param caloria
+     * @return Integer[]
+     */
     public static Integer[] contarCaloria(String id, int caloria) {
         MongoCollection<Document> collection = getCollection();
         Document query = new Document("_id", new ObjectId(id));
@@ -109,7 +147,11 @@ public class MongoDB {
 
         return data;
     }
-
+    
+    /** 
+     * @param id
+     * @return Integer[]
+     */
     public static Integer[] getCalorias(String id) {
         MongoCollection<Document> collection = getCollection();
         Document query = new Document("_id", new ObjectId(id));
@@ -121,7 +163,10 @@ public class MongoDB {
         data[2] = usuario.getCalorias_consumidas();
         return data;
     }
-
+    /** 
+     * @param id
+     * @return int
+     */
     public static int calMetaUsuario(String id){
         MongoCollection<Document> collection = getCollection();
         Document query = new Document("_id", new ObjectId(id));

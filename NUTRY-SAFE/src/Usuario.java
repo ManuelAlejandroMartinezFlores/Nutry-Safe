@@ -16,7 +16,8 @@ public class Usuario {
     private int caloria_objetivo;
     private int calorias_consumidas;
     private String ultima_fecha;
-    String id;
+    private String id;
+    private String contrasena;
 
 
     /**
@@ -27,9 +28,11 @@ public class Usuario {
      * @param caloria_objetivo_ para el día
      * @param calorias_consumidas_ durante el día
      * @param ulitma_fecha_ en la que se inicio sesión
+     * @param id_ id
+     * @param contrasena_ contrasena
      */
     Usuario(String nombre_usuario_, int edad_, int altura_, int peso_, int caloria_objetivo_,
-            int calorias_consumidas_, String ultima_fecha_, String id_){
+            int calorias_consumidas_, String ultima_fecha_, String id_, String contrasena_){
         setNombre_usuario(nombre_usuario_);
         setEdad(edad_);
         setAltura(altura_);
@@ -38,13 +41,16 @@ public class Usuario {
         setCalorias_consumidas(calorias_consumidas_);
         ultima_fecha = ultima_fecha_;
         id = id_;
+        contrasena = contrasena_;
     }
 
     /**
      * Constructor para usuario nuevo
      * @param nombre_usuario_ nombre usuario
+     * @param id_ id
+     * @param contrasena_ contrasena
      */
-    Usuario(String nombre_usuario_, String id_){
+    Usuario(String nombre_usuario_, String id_, String contrasena_){
         setNombre_usuario(nombre_usuario_);
         setEdad(18);
         setAltura(160);
@@ -53,6 +59,7 @@ public class Usuario {
         ultima_fecha = LocalDate.now().toString();
         id = id_;
         peso = 170;
+        contrasena = contrasena_;
     }
 
     /**
@@ -217,11 +224,27 @@ public class Usuario {
         return ultima_fecha;
     }
 
+    /**
+     * Indica el peso
+     * @return peso en lb
+     */
 	public int getPeso() {
 		return peso;
 	}
 
+    /**
+     * Indica el id del usuario
+     * @return id Hexagesimal
+     */
     public String getId() {
         return id;
+    }
+
+    /**
+     * Indica la contrasena
+     * @return contrasena
+     */
+    public String getContrasena() {
+        return contrasena;
     }
 }

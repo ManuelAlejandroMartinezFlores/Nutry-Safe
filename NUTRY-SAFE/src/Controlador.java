@@ -30,10 +30,11 @@ public class Controlador {
 	 * Indica el id del usuario en la base de datos
 	 * @param nombre
 	 * @param nuevo si es nuevo usuario o no
+	 * @param contrasena contrasena del usuario
 	 * @return String
 	 */
-	public static String getIdUsuario(String nombre, boolean nuevo) {
-		return MongoDB.getIdUsuario(nombre, nuevo);
+	public static String getIdUsuario(String nombre, String contrasena, boolean nuevo) {
+		return MongoDB.getIdUsuario(nombre, contrasena, nuevo);
 	}
 
 	/** 
@@ -104,11 +105,11 @@ public class Controlador {
 	 * @return String id de usuario
 	 * @throws Exception si desea crear un usuario que ya existe o acceder a uno que no existe
 	 */
-	public static String inicioSesion(String nombre, boolean nuevo) throws Exception {
+	public static String inicioSesion(String nombre, String contrasena, boolean nuevo) throws Exception {
 		if (nombre.length() == 0){
 			throw new Exception();
 		}
-		String id = getIdUsuario(nombre, nuevo);
+		String id = getIdUsuario(nombre, contrasena, nuevo);
 		if (id.length() == 0) {
 			throw new Exception();
 		}

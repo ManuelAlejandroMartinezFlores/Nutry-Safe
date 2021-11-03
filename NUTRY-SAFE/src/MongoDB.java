@@ -30,7 +30,8 @@ public class MongoDB {
                                             .append("peso", usuario.getPeso())
                                             .append("caloria_objetivo", usuario.getCaloria_objetivo())
                                             .append("caloria_consumida", usuario.getCalorias_consumidas())
-                                            .append("ultima_fecha", usuario.getUltima_fecha());
+                                            .append("ultima_fecha", usuario.getUltima_fecha())
+                                            .append("contrasena", usuario.getContrasena());
 
         return objeto;
     }
@@ -49,7 +50,8 @@ public class MongoDB {
         int cal_con = doc.getInteger("caloria_consumida");
         String fecha = doc.getString("ultima_fecha");
         String id = doc.getObjectId("_id").toHexString();
-        return new Usuario(nombre, edad, altura, peso, cal_obj, cal_con, fecha, id);
+        String con = doc.getString("contrasena");
+        return new Usuario(nombre, edad, altura, peso, cal_obj, cal_con, fecha, id, con);
     }
     
     /** 
@@ -81,24 +83,25 @@ public class MongoDB {
     /** 
      * Obtiene el ID del usuario a partir del nombre.
      * Si el usuario es nuevo lo crea
-     * @param nombre
+     * @param nombre de usuario
      * @param nuevo si es nuevo o no
+     * @param contrasena contrasena
      * @return String
      */
-    public static String getIdUsuario(String nombre, boolean nuevo){
+    public static String getIdUsuario(String nombre, String contrasena, boolean nuevo){
         MongoCollection<Document> collection = getCollection();
 
-        long count = collection.countDocuments(new Document("nombre_usuario", new Document("$eq", nombre)));
-
-        if (count >= 1 && !nuevo){
-            Document query = new Document("nombre_usuario", nombre);
+        long countC = collection.countDocuments(new Document("nombre_usuario", new Document("$eq", nombre)).append("contrasena", new Document("$eq", contrasena)));
+        long countN = collection.countDocuments(new Document("nombre_usuario", new Document("$eq", nombre)));
+        if (countC >= 1 && !nuevo){
+            Document query = new Document("nombre_usuario", nombre).append("contrasena", contrasena);
             Document doc =  collection.find(query).iterator().next();
             return doc.getObjectId("_id").toHexString();
-        } else if (count >= 1 && nuevo) {
+        } else if (countN >= 1 && nuevo) {
             return "";
-        } else if (count < 1 && nuevo) {
+        } else if (countN < 1 && nuevo) {
             String id = new ObjectId().toHexString();
-            collection.insertOne(usuarioToDoc(new Usuario(nombre, id)));
+            collection.insertOne(usuarioToDoc(new Usuario(nombre, id, contrasena)));
             return id;
         } else {
             return "";

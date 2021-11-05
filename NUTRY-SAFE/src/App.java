@@ -8,7 +8,11 @@
  */
 
 import java.awt.Dimension;
+import java.util.HashMap;
+
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 
 
 public class App {
@@ -18,7 +22,7 @@ public class App {
      * Muestra y recibe mensajes.
      * @param args
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
     	javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -28,12 +32,12 @@ public class App {
             		e.printStackTrace();
             	}
             }
-        });
+        });    
 
     }
 
     public static void createAndShowGUI() {
-		JFrame frame = new JFrame();
+		JFrame frame = new JFrame("NUTRY-SAFE");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(500,375));
 		PanelIngreso p = new PanelIngreso();

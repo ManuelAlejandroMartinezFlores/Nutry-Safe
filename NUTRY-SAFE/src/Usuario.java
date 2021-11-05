@@ -5,7 +5,8 @@
  * @version Entrega 1
  */
 
-import java.time.LocalDate; 
+import java.time.LocalDate;
+import java.util.HashMap; 
 
 public class Usuario {
     
@@ -19,20 +20,27 @@ public class Usuario {
     private String id;
     private String contrasena;
 
+    // Prototipo
+    private HashMap<String, Integer> con_hist;
+    private HashMap<String, Integer> obj_hist;
 
     /**
-     * Constructor para usuario existente desde Archivos
-     * @param nombre_usuario_ nombre usuario
-     * @param edad_ en años
-     * @param altura_ en cm
-     * @param caloria_objetivo_ para el día
-     * @param calorias_consumidas_ durante el día
-     * @param ulitma_fecha_ en la que se inicio sesión
-     * @param id_ id
-     * @param contrasena_ contrasena
+     * Construcotr desde MongoDB
+     * @param nombre_usuario_
+     * @param edad_
+     * @param altura_
+     * @param peso_
+     * @param caloria_objetivo_
+     * @param calorias_consumidas_
+     * @param ultima_fecha_
+     * @param id_
+     * @param contrasena_
+     * @param hist
+     * @param hist_obj
      */
     Usuario(String nombre_usuario_, int edad_, int altura_, int peso_, int caloria_objetivo_,
-            int calorias_consumidas_, String ultima_fecha_, String id_, String contrasena_){
+            int calorias_consumidas_, String ultima_fecha_, String id_, String contrasena_, HashMap<String, Integer> hist,
+            HashMap<String, Integer> hist_obj){
         setNombre_usuario(nombre_usuario_);
         setEdad(edad_);
         setAltura(altura_);
@@ -42,6 +50,9 @@ public class Usuario {
         ultima_fecha = ultima_fecha_;
         id = id_;
         contrasena = contrasena_;
+        con_hist = hist;
+        obj_hist = hist_obj;
+        contarCaloria(0);
     }
 
     /**
@@ -60,6 +71,11 @@ public class Usuario {
         id = id_;
         peso = 170;
         contrasena = contrasena_;
+        con_hist = new HashMap<String, Integer>();
+        con_hist.put(ultima_fecha, 0);
+        obj_hist = new HashMap<>();
+        obj_hist.put(ultima_fecha, 2000);
+
     }
 
     /**
@@ -69,10 +85,16 @@ public class Usuario {
     public void contarCaloria(int caloria){
         // Si es día diferente se reinicia el contador
         if (!ultima_fecha.equals(LocalDate.now().toString())){
+            con_hist.put(ultima_fecha, calorias_consumidas);
+            obj_hist.put(ultima_fecha, caloria_objetivo);
             calorias_consumidas = 0;
             ultima_fecha = LocalDate.now().toString();
+            con_hist.put(ultima_fecha, calorias_consumidas);
+            obj_hist.put(ultima_fecha, caloria_objetivo);
         }
         calorias_consumidas += caloria;
+        con_hist.put(ultima_fecha, calorias_consumidas);
+        obj_hist.put(ultima_fecha, caloria_objetivo);
         
     }
 
@@ -83,8 +105,12 @@ public class Usuario {
     public int getCaloriaDisponible(){
         // Si es día diferente se reinicia el contador
         if (!ultima_fecha.equals(LocalDate.now().toString())){
+            con_hist.put(ultima_fecha, calorias_consumidas);
+            obj_hist.put(ultima_fecha, caloria_objetivo);
             calorias_consumidas = 0;
             ultima_fecha = LocalDate.now().toString();
+            con_hist.put(ultima_fecha, calorias_consumidas);
+            obj_hist.put(ultima_fecha, caloria_objetivo);
         }
         if (calorias_consumidas > caloria_objetivo){
             return 0;
@@ -123,6 +149,7 @@ public class Usuario {
         peso = peso_;
         setAltura(altura_);
         setCaloria_objetivo(caloria_objetivo_);
+        contarCaloria(0);
     }
 
     
@@ -247,4 +274,21 @@ public class Usuario {
     public String getContrasena() {
         return contrasena;
     }
+
+    /**
+     * Muestra el historial de fechas y calorias consumidas
+     * @return
+     */
+    public HashMap<String, Integer> getConHist(){
+        return con_hist;
+    }
+
+    /**
+     * Muestra el historial de fechas y calorias objetivo
+     * @return
+     */
+    public HashMap<String, Integer> getObjHist(){
+        return obj_hist;
+    }
+
 }

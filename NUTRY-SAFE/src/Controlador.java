@@ -129,4 +129,8 @@ public class Controlador {
 		return Receta.darConsejo(MongoDB.getConsejos());
 	}
 
+	public static String darReceta(){
+		return Receta.darReceta(MongoDB.getRecetas());
+	}
+
 }

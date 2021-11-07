@@ -64,8 +64,15 @@ public class Receta {;
         return consejos.get(rand.nextInt(consejos.size()));
     }
     
-    
-
+    /**
+     * Genera una receta aleatoria
+     * @param recetas lista de recetas
+     * @return receta
+     */
+    public static String darReceta(List<String> recetas){
+        Random rand = new Random();
+        return recetas.get(rand.nextInt(recetas.size()));
+    }
 
 
 

@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -41,10 +44,19 @@ public class BarChart extends JFrame {
 
     HashMap<String, Integer> con_hist = (HashMap<String, Integer>) data[0];
     HashMap<String, Integer> obj_hist = (HashMap<String, Integer>) data[1];
+
+    List<String> keys = new ArrayList<String>();
+
     for (String k : con_hist.keySet()){
+      keys.add(k);
+    }
+
+    Collections.sort(keys);
+
+    for (String k : keys){
         dataset.addValue(con_hist.get(k), "Calorias consumidas", k);
     }
-    for (String k : obj_hist.keySet()){
+    for (String k : keys){
       dataset.addValue(obj_hist.get(k), "Calorias objetivo", k);
   }
 

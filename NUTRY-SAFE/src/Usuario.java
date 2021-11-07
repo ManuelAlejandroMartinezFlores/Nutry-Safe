@@ -141,10 +141,10 @@ public class Usuario {
      * Cambia los datos que se reciben en la sección Datos
      * @param edad_ en años
      * @param altura_ en cm
+     * @param peso_ en lbs
      * @param caloria_objetivo_ del día
      */
-    public void setDatos(String nombre_usuario_, int edad_, int altura_, int peso_, int caloria_objetivo_){
-    	setNombre_usuario(nombre_usuario_);
+    public void setDatos(int edad_, int altura_, int peso_, int caloria_objetivo_){
         setEdad(edad_);
         peso = peso_;
         setAltura(altura_);

@@ -23,43 +23,6 @@ import org.bson.types.ObjectId;
 public class MongoDB {
     
     /** 
-     * Transforma un Usuario a un Documento BSON
-     * @param usuario
-     * @return Document
-     */
-    // private static Document usuarioToDoc(Usuario usuario){
-    //     Document objeto = new Document("_id", new ObjectId(usuario.getId()))
-    //                                         .append("nombre_usuario", usuario.getNombre_usuario())
-    //                                         .append("edad", usuario.getEdad())
-    //                                         .append("altura", usuario.getAltura())
-    //                                         .append("peso", usuario.getPeso())
-    //                                         .append("caloria_objetivo", usuario.getCaloria_objetivo())
-    //                                         .append("caloria_consumida", usuario.getCalorias_consumidas())
-    //                                         .append("ultima_fecha", usuario.getUltima_fecha())
-    //                                         .append("contrasena", usuario.getContrasena());
-
-    //     return objeto;
-    // }
-    
-    /** 
-     * Transforma un documento BSON a un Usuario
-     * @param doc
-     * @return Usuario
-     */
-    // private static Usuario docToUsuario(Document doc){
-    //     String nombre = doc.getString("nombre_usuario");
-    //     int edad = doc.getInteger("edad");
-    //     int altura = doc.getInteger("altura");
-    //     int peso = doc.getInteger("peso");
-    //     int cal_obj = doc.getInteger("caloria_objetivo");
-    //     int cal_con = doc.getInteger("caloria_consumida");
-    //     String fecha = doc.getString("ultima_fecha");
-    //     String id = doc.getObjectId("_id").toHexString();
-    //     String con = doc.getString("contrasena");
-    //     return new Usuario(nombre, edad, altura, peso, cal_obj, cal_con, fecha, id, con);
-    // }
-    
-    /** 
      * Obtiene un usuario a partir de un ID
      * @param id
      * @return Usuario
@@ -92,8 +55,10 @@ public class MongoDB {
      * @param nuevo si es nuevo o no
      * @param contrasena contrasena
      * @return String
+     * @throws UsuarioExisteException
+     * @throws UsuarioContrasenaException
      */
-    public static String getIdUsuario(String nombre, String contrasena, boolean nuevo){
+    public static String getIdUsuario(String nombre, String contrasena, boolean nuevo) throws UsuarioExisteException, UsuarioContrasenaException{
         MongoCollection<Document> collection = getCollection();
 
         long countC = collection.countDocuments(new Document("nombre_usuario", new Document("$eq", nombre)).append("contrasena", new Document("$eq", contrasena)));
@@ -103,13 +68,13 @@ public class MongoDB {
             Document doc =  collection.find(query).iterator().next();
             return doc.getObjectId("_id").toHexString();
         } else if (countN >= 1 && nuevo) {
-            return "";
+            throw new UsuarioExisteException();
         } else if (countN < 1 && nuevo) {
             String id = new ObjectId().toHexString();
             escribirUsuario(new Usuario(nombre, id, contrasena), collection);
             return id;
         } else {
-            return "";
+            throw new UsuarioContrasenaException();
         }
         
     }
@@ -117,21 +82,20 @@ public class MongoDB {
      /** 
      * Actualiza los datos del usuario en la nube
      * @param id
-     * @param nombre
      * @param edad
      * @param altura
      * @param peso
      * @param cal_obj
      * @return String
      */
-    public static String actualizarDatos(String id, String nombre, int edad, int altura, int peso, int cal_obj) {
+    public static String actualizarDatos(String id, int edad, int altura, int peso, int cal_obj) {
         MongoCollection<Document> collection = getCollection();
 
         Document query = new Document("_id", new ObjectId(id));
         Document doc = collection.find(query).iterator().next();
         Usuario usuario = docToUsuario(doc);
-        usuario.setDatos(nombre, edad, altura, peso, cal_obj);
-        escribirUsuario(usuario, collection);
+        usuario.setDatos(edad, altura, peso, cal_obj);
+        escribirUsuario(usuario, collection);;
         return usuario.toString();
     }
     
@@ -269,5 +233,23 @@ public class MongoDB {
                                             .append("hist_obj", h_o);
 
         return doc;
+    }
+
+    /**
+     * Obtiene un arreglo con los consejos desde la nube.
+     * @return Lista con los consejos
+     */
+    public static List<String> getConsejos(){
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://admin:admin@nutrysafe.htrby.mongodb.net/NutrySafe?retryWrites=true&w=majority");
+        MongoClientSettings settings = MongoClientSettings.builder()
+                                                            .applyConnectionString(connectionString)
+                                                            .build();
+        MongoClient mongoClient = MongoClients.create(settings);
+        MongoDatabase database = mongoClient.getDatabase("Usuarios");
+        
+        MongoCollection<Document> collection = database.getCollection("utils");
+        Document query = new Document("nombre", "consejos");
+        Document doc = collection.find(query).iterator().next();
+        return (List<String>) doc.get("lista");
     }
 }

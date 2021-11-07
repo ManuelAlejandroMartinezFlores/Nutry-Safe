@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Random;
+
 /**
  * Controlador.
  * Contiene la lógica de las operaciones de la aplicación
@@ -17,13 +20,13 @@ public class Controlador {
 	 * @return String[] información del usuario
 	 * @throws Exception
 	 */
-	public static String[] actualizarDatos(String id, String nombre, int edad, int altura, int peso,
+	public static String[] actualizarDatos(String id, int edad, int altura, int peso,
 										int caloria_objetivo) throws Exception {
 		
-		if (nombre.length() == 0 || edad < 0 || altura < 0 || peso < 0 || caloria_objetivo < 0) {
+		if (edad < 0 || altura < 0 || peso < 0 || caloria_objetivo < 0) {
 			throw new Exception();
 		}
-		return  MongoDB.actualizarDatos(id, nombre, edad, altura, peso, caloria_objetivo).split(",");
+		return  MongoDB.actualizarDatos(id, edad, altura, peso, caloria_objetivo).split(",");
 	}
 	
 	/** 
@@ -32,8 +35,10 @@ public class Controlador {
 	 * @param nuevo si es nuevo usuario o no
 	 * @param contrasena contrasena del usuario
 	 * @return String
+	 * @throws UsuarioContrasenaException
+	 * @throws UsuarioExisteException
 	 */
-	public static String getIdUsuario(String nombre, String contrasena, boolean nuevo) {
+	public static String getIdUsuario(String nombre, String contrasena, boolean nuevo) throws UsuarioExisteException, UsuarioContrasenaException {
 		return MongoDB.getIdUsuario(nombre, contrasena, nuevo);
 	}
 
@@ -115,5 +120,13 @@ public class Controlador {
 		}
 		return id;
 	} 
+
+	/**
+	 * Genera un consejo aleatorio
+	 * @return consejo
+	 */
+	public static String darConsejo(){
+		return Receta.darConsejo(MongoDB.getConsejos());
+	}
 
 }

@@ -1,9 +1,9 @@
 /**
  * Driver.
- * 
+ *
  * Interactua con el usuario mostrando y recibiendo mensajes.
  * Funciona como menú del programa.
- * 
+ *
  * @version Entrega 2
  */
 
@@ -11,14 +11,15 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 
+
 public class App {
-    
-    /** 
+
+    /**
      * Contiene el menú del programa.
      * Muestra y recibe mensajes.
      * @param args
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
     	javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -28,17 +29,17 @@ public class App {
             		e.printStackTrace();
             	}
             }
-        });
+        });    
 
-    } 
-    
+    }
+
     public static void createAndShowGUI() {
-		JFrame frame = new JFrame();
+		JFrame frame = new JFrame("NUTRY-SAFE");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(500,375));
 		PanelIngreso p = new PanelIngreso();
 		p.setOpaque(false);
-		
+
 		frame.setContentPane(p);
 
         //Display the window.

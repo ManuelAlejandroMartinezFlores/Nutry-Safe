@@ -18,10 +18,12 @@ public class PanelIngreso extends JPanel {
 	PanelGeneral panel = null;
 	JButton salir_b;
 	JTextField textField;
+	JPasswordField contrasenaTF;
 	JLabel error_l;
 	JLabel titulo_l;
 	JLabel inst_l;
 	JLabel ingreso_l;
+	JLabel contra_l;
 	JButton nuevo_b;
 	JButton existente_b;
 	
@@ -45,10 +47,19 @@ public class PanelIngreso extends JPanel {
 		textField.setBounds(173, 107, 130, 26);
 		add(textField);
 		textField.setColumns(10);
+
+		contrasenaTF = new JPasswordField();
+		contrasenaTF.setBounds(173, 130, 130, 26);
+		add(contrasenaTF);
+		contrasenaTF.setColumns(10);
 		
 		ingreso_l = new JLabel("Usuario");
 		ingreso_l.setBounds(79, 112, 53, 16);
 		add(ingreso_l);
+
+		contra_l = new JLabel("Contraseña");
+		contra_l.setBounds(79, 140, 80, 16);
+		add(contra_l);
 		
 		nuevo_b = new JButton("Usuario Nuevo");
 		nuevo_b.addActionListener(new ActionListener() {
@@ -71,12 +82,6 @@ public class PanelIngreso extends JPanel {
 		error_l = new JLabel("", SwingConstants.CENTER);
 		error_l.setBounds(98, 214, 172, 16);
 		add(error_l);
-
-		//No tocar
-		// panel = new PanelGeneral(id);
-		// panel.setBounds(0, 0, 500, 300);
-		// panel.setVisible(false);
-		// add(panel);
 		
 		salir_b = new JButton("Salir");
 		salir_b.setBounds(10, 304, 117, 29);
@@ -95,13 +100,19 @@ public class PanelIngreso extends JPanel {
 	 */
 	public void usuarioNuevo() {
 		try {
-			id = Controlador.inicioSesion(textField.getText(), true);
+			id = Controlador.inicioSesion(textField.getText(), new String(contrasenaTF.getPassword()), true);
 			mostrarGeneral();
 			textField.setText("");
+			contrasenaTF.setText("");
 			error_l.setText("");
-		} catch (Exception ex) {
+		} catch (UsuarioExisteException ex) {
 			error_l.setText("Usuario ya existe");
 			id = "616f52297811334c6758a1c2";
+			ex.printStackTrace(System.out);
+		} catch (Exception ex){
+			error_l.setText("Error");
+			id = "616f52297811334c6758a1c2";
+			ex.printStackTrace(System.out);
 		}
 	}
 	
@@ -111,12 +122,17 @@ public class PanelIngreso extends JPanel {
 	 */
 	public void usuarioExistente() {
 		try {
-			id = Controlador.inicioSesion(textField.getText(), false);
+			id = Controlador.inicioSesion(textField.getText(), new String(contrasenaTF.getPassword()), false);
 			mostrarGeneral();
 			textField.setText("");
+			contrasenaTF.setText("");
 			error_l.setText("");
-		} catch (Exception ex) {
-			error_l.setText("Usuario no existe");
+		} catch (UsuarioContrasenaException ex) {
+			error_l.setText("Usuario o contraseña incorrecta");
+			id = "616f52297811334c6758a1c2";
+			ex.printStackTrace(System.out);
+		} catch (Exception ex){
+			error_l.setText("Error");
 			id = "616f52297811334c6758a1c2";
 			ex.printStackTrace(System.out);
 		}
@@ -139,6 +155,8 @@ public class PanelIngreso extends JPanel {
 		salir_b.setVisible(true);
 
 		textField.setVisible(false);
+		contrasenaTF.setVisible(false);
+		contra_l.setVisible(false);
 		error_l.setVisible(false);
 		titulo_l.setVisible(false);
 		inst_l.setVisible(false);
@@ -157,6 +175,8 @@ public class PanelIngreso extends JPanel {
 		salir_b.setVisible(false);
 
 		textField.setVisible(true);
+		contrasenaTF.setVisible(true);
+		contra_l.setVisible(true);
 		error_l.setVisible(true);
 		titulo_l.setVisible(true);
 		inst_l.setVisible(true);

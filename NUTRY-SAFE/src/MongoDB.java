@@ -9,6 +9,11 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoClient;
 import com.mongodb.MongoClientSettings;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import com.mongodb.ConnectionString;
 import com.mongodb.client.MongoDatabase;
 
@@ -16,41 +21,6 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 public class MongoDB {
-    
-    /** 
-     * Transforma un Usuario a un Documento BSON
-     * @param usuario
-     * @return Document
-     */
-    private static Document usuarioToDoc(Usuario usuario){
-        Document objeto = new Document("_id", new ObjectId(usuario.getId()))
-                                            .append("nombre_usuario", usuario.getNombre_usuario())
-                                            .append("edad", usuario.getEdad())
-                                            .append("altura", usuario.getAltura())
-                                            .append("peso", usuario.getPeso())
-                                            .append("caloria_objetivo", usuario.getCaloria_objetivo())
-                                            .append("caloria_consumida", usuario.getCalorias_consumidas())
-                                            .append("ultima_fecha", usuario.getUltima_fecha());
-
-        return objeto;
-    }
-    
-    /** 
-     * Transforma un documento BSON a un Usuario
-     * @param doc
-     * @return Usuario
-     */
-    private static Usuario docToUsuario(Document doc){
-        String nombre = doc.getString("nombre_usuario");
-        int edad = doc.getInteger("edad");
-        int altura = doc.getInteger("altura");
-        int peso = doc.getInteger("peso");
-        int cal_obj = doc.getInteger("caloria_objetivo");
-        int cal_con = doc.getInteger("caloria_consumida");
-        String fecha = doc.getString("ultima_fecha");
-        String id = doc.getObjectId("_id").toHexString();
-        return new Usuario(nombre, edad, altura, peso, cal_obj, cal_con, fecha, id);
-    }
     
     /** 
      * Obtiene un usuario a partir de un ID
@@ -81,27 +51,30 @@ public class MongoDB {
     /** 
      * Obtiene el ID del usuario a partir del nombre.
      * Si el usuario es nuevo lo crea
-     * @param nombre
+     * @param nombre de usuario
      * @param nuevo si es nuevo o no
+     * @param contrasena contrasena
      * @return String
+     * @throws UsuarioExisteException
+     * @throws UsuarioContrasenaException
      */
-    public static String getIdUsuario(String nombre, boolean nuevo){
+    public static String getIdUsuario(String nombre, String contrasena, boolean nuevo) throws UsuarioExisteException, UsuarioContrasenaException{
         MongoCollection<Document> collection = getCollection();
 
-        long count = collection.countDocuments(new Document("nombre_usuario", new Document("$eq", nombre)));
-
-        if (count >= 1 && !nuevo){
-            Document query = new Document("nombre_usuario", nombre);
+        long countC = collection.countDocuments(new Document("nombre_usuario", new Document("$eq", nombre)).append("contrasena", new Document("$eq", contrasena)));
+        long countN = collection.countDocuments(new Document("nombre_usuario", new Document("$eq", nombre)));
+        if (countC >= 1 && !nuevo){
+            Document query = new Document("nombre_usuario", nombre).append("contrasena", contrasena);
             Document doc =  collection.find(query).iterator().next();
             return doc.getObjectId("_id").toHexString();
-        } else if (count >= 1 && nuevo) {
-            return "";
-        } else if (count < 1 && nuevo) {
+        } else if (countN >= 1 && nuevo) {
+            throw new UsuarioExisteException();
+        } else if (countN < 1 && nuevo) {
             String id = new ObjectId().toHexString();
-            collection.insertOne(usuarioToDoc(new Usuario(nombre, id)));
+            escribirUsuario(new Usuario(nombre, id, contrasena), collection);
             return id;
         } else {
-            return "";
+            throw new UsuarioContrasenaException();
         }
         
     }
@@ -109,21 +82,20 @@ public class MongoDB {
      /** 
      * Actualiza los datos del usuario en la nube
      * @param id
-     * @param nombre
      * @param edad
      * @param altura
      * @param peso
      * @param cal_obj
      * @return String
      */
-    public static String actualizarDatos(String id, String nombre, int edad, int altura, int peso, int cal_obj) {
+    public static String actualizarDatos(String id, int edad, int altura, int peso, int cal_obj) {
         MongoCollection<Document> collection = getCollection();
 
         Document query = new Document("_id", new ObjectId(id));
         Document doc = collection.find(query).iterator().next();
         Usuario usuario = docToUsuario(doc);
-        usuario.setDatos(nombre, edad, altura, peso, cal_obj);
-        escribirUsuario(usuario, collection);
+        usuario.setDatos(edad, altura, peso, cal_obj);
+        escribirUsuario(usuario, collection);;
         return usuario.toString();
     }
     
@@ -189,5 +161,113 @@ public class MongoDB {
         Document query = new Document("_id", new ObjectId(id));
         Document doc = collection.find(query).iterator().next();
         return doc.getInteger("caloria_objetivo");
+    }  
+
+    /**
+     * Obtiene un arreglo de HashMap<String, Integer> que contienen fechas y calorías
+     * @param id id del usuario
+     * @return arreglo con históricos
+     */
+    public static Object[] getHist(String id){
+        MongoCollection<Document> collection = getCollection();
+        Document query = new Document("_id", new ObjectId(id));
+        Document doc = collection.find(query).iterator().next();
+        Object[] res = new Object[2];
+        res[0] = docToUsuario(doc).getConHist();
+        res[1] = docToUsuario(doc).getObjHist();
+        return res;
+    }
+
+    /**
+     * Transforma documento BSON a Usuario
+     * @param doc
+     * @return Usuario
+     */
+    private static Usuario docToUsuario(Document doc){
+        String nombre = doc.getString("nombre_usuario");
+        int edad = doc.getInteger("edad");
+        int altura = doc.getInteger("altura");
+        int peso = doc.getInteger("peso");
+        int cal_obj = doc.getInteger("caloria_objetivo");
+        int cal_con = doc.getInteger("caloria_consumida");
+        String fecha = doc.getString("ultima_fecha");
+        String id = doc.getObjectId("_id").toHexString();
+        String con = doc.getString("contrasena");
+        List<String> h_f = (List<String>) doc.get("hist_fechas");
+        List<Integer> h_c = (List<Integer>) doc.get("hist_con");
+        List<Integer> h_o = (List<Integer>) doc.get("hist_obj");
+        HashMap<String, Integer> hist = new HashMap<String, Integer>();
+        HashMap<String, Integer> hist_obj = new HashMap<>();
+        for (int i=0; i<h_f.size(); i++){
+            hist.put(h_f.get(i), h_c.get(i));
+            hist_obj.put(h_f.get(i), h_o.get(i));
+        }
+        return new Usuario(nombre, edad, altura, peso, cal_obj, cal_con, fecha, id, con, hist, hist_obj);
+    }
+
+    /**
+     * Transforma Usuario a documento BSON
+     * @param usuario
+     * @return documento
+     */
+    private static Document usuarioToDoc(Usuario usuario){
+        List<String> h_f = new ArrayList<>();
+        List<Integer> h_c = new ArrayList<>();
+        List<Integer> h_o = new ArrayList<>();
+        for (String key : usuario.getConHist().keySet()){
+            h_f.add(key);
+            h_c.add(usuario.getConHist().get(key));
+            h_o.add(usuario.getObjHist().get(key));
+        }
+        Document doc = new Document("_id", new ObjectId(usuario.getId()))
+                                            .append("nombre_usuario", usuario.getNombre_usuario())
+                                            .append("edad", usuario.getEdad())
+                                            .append("altura", usuario.getAltura())
+                                            .append("peso", usuario.getPeso())
+                                            .append("caloria_objetivo", usuario.getCaloria_objetivo())
+                                            .append("caloria_consumida", usuario.getCalorias_consumidas())
+                                            .append("ultima_fecha", usuario.getUltima_fecha())
+                                            .append("contrasena", usuario.getContrasena())
+                                            .append("hist_fechas", h_f)
+                                            .append("hist_con", h_c)
+                                            .append("hist_obj", h_o);
+
+        return doc;
+    }
+
+    /**
+     * Obtiene un arreglo con los consejos desde la nube.
+     * @return Lista con los consejos
+     */
+    public static List<String> getConsejos(){
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://admin:admin@nutrysafe.htrby.mongodb.net/NutrySafe?retryWrites=true&w=majority");
+        MongoClientSettings settings = MongoClientSettings.builder()
+                                                            .applyConnectionString(connectionString)
+                                                            .build();
+        MongoClient mongoClient = MongoClients.create(settings);
+        MongoDatabase database = mongoClient.getDatabase("Usuarios");
+        
+        MongoCollection<Document> collection = database.getCollection("utils");
+        Document query = new Document("nombre", "consejos");
+        Document doc = collection.find(query).iterator().next();
+        return (List<String>) doc.get("lista");
+    }
+
+    /**
+     * Genera un arreglo con urls de recetas
+     * @return lista con url
+     */
+    public static List<String> getRecetas(){
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://admin:admin@nutrysafe.htrby.mongodb.net/NutrySafe?retryWrites=true&w=majority");
+        MongoClientSettings settings = MongoClientSettings.builder()
+                                                            .applyConnectionString(connectionString)
+                                                            .build();
+        MongoClient mongoClient = MongoClients.create(settings);
+        MongoDatabase database = mongoClient.getDatabase("Usuarios");
+        
+        MongoCollection<Document> collection = database.getCollection("utils");
+        Document query = new Document("nombre", "recetas");
+        Document doc = collection.find(query).iterator().next();
+        return (List<String>) doc.get("lista");
     }
 }

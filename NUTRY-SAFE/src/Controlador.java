@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Random;
+
 /**
  * Controlador.
  * Contiene la lógica de las operaciones de la aplicación
@@ -17,23 +20,26 @@ public class Controlador {
 	 * @return String[] información del usuario
 	 * @throws Exception
 	 */
-	public static String[] actualizarDatos(String id, String nombre, int edad, int altura, int peso,
+	public static String[] actualizarDatos(String id, int edad, int altura, int peso,
 										int caloria_objetivo) throws Exception {
 		
-		if (nombre.length() == 0 || edad < 0 || altura < 0 || peso < 0 || caloria_objetivo < 0) {
+		if (edad < 0 || altura < 0 || peso < 0 || caloria_objetivo < 0) {
 			throw new Exception();
 		}
-		return  MongoDB.actualizarDatos(id, nombre, edad, altura, peso, caloria_objetivo).split(",");
+		return  MongoDB.actualizarDatos(id, edad, altura, peso, caloria_objetivo).split(",");
 	}
 	
 	/** 
 	 * Indica el id del usuario en la base de datos
 	 * @param nombre
 	 * @param nuevo si es nuevo usuario o no
+	 * @param contrasena contrasena del usuario
 	 * @return String
+	 * @throws UsuarioContrasenaException
+	 * @throws UsuarioExisteException
 	 */
-	public static String getIdUsuario(String nombre, boolean nuevo) {
-		return MongoDB.getIdUsuario(nombre, nuevo);
+	public static String getIdUsuario(String nombre, String contrasena, boolean nuevo) throws UsuarioExisteException, UsuarioContrasenaException {
+		return MongoDB.getIdUsuario(nombre, contrasena, nuevo);
 	}
 
 	/** 
@@ -104,15 +110,27 @@ public class Controlador {
 	 * @return String id de usuario
 	 * @throws Exception si desea crear un usuario que ya existe o acceder a uno que no existe
 	 */
-	public static String inicioSesion(String nombre, boolean nuevo) throws Exception {
+	public static String inicioSesion(String nombre, String contrasena, boolean nuevo) throws Exception {
 		if (nombre.length() == 0){
 			throw new Exception();
 		}
-		String id = getIdUsuario(nombre, nuevo);
+		String id = getIdUsuario(nombre, contrasena, nuevo);
 		if (id.length() == 0) {
 			throw new Exception();
 		}
 		return id;
 	} 
+
+	/**
+	 * Genera un consejo aleatorio
+	 * @return consejo
+	 */
+	public static String darConsejo(){
+		return Receta.darConsejo(MongoDB.getConsejos());
+	}
+
+	public static String darReceta(){
+		return Receta.darReceta(MongoDB.getRecetas());
+	}
 
 }

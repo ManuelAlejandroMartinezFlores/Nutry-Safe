@@ -133,7 +133,7 @@ public class PanelGeneral extends JPanel {
 		if (calorias_p != null) {calorias_p.setVisible(false);}
 		if (chart != null) {chart.setVisible(false);}
 
-		receta_p = new PanelReceta(id);
+		receta_p = new PanelReceta();
 		receta_p.setBounds(151, 0, 349, 273);
 		receta_p.setVisible(true);
 		add(receta_p);

@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Random;
+
 /**
  * Receta.
  * 
@@ -51,7 +54,15 @@ public class Receta {;
     
     }
     
-
+    /**
+     * Genera un consejo aleatorio
+     * @param consejos lista de consejos
+     * @return consejo
+     */
+    public static String darConsejo(List<String> consejos){
+        Random rand = new Random();
+        return consejos.get(rand.nextInt(consejos.size()));
+    }
     
     
 

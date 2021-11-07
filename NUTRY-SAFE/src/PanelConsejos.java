@@ -33,7 +33,8 @@ public class PanelConsejos extends JPanel {
 		JTextPane textPane = new JTextPane();
 		Font f = new Font(Font.SANS_SERIF, 1, 10);
 		textPane.setFont(f);
-		textPane.setText(Controlador.darConsejo(id));
+		// textPane.setText(Controlador.darConsejo(id));
+		textPane.setText(Controlador.darConsejo());
 		textPane.setBounds(6, 48, 291, 98);
 		add(textPane);
 		

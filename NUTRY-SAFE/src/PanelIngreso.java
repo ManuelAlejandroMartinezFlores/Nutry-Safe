@@ -105,9 +105,14 @@ public class PanelIngreso extends JPanel {
 			textField.setText("");
 			contrasenaTF.setText("");
 			error_l.setText("");
-		} catch (Exception ex) {
+		} catch (UsuarioExisteException ex) {
 			error_l.setText("Usuario ya existe");
 			id = "616f52297811334c6758a1c2";
+			ex.printStackTrace(System.out);
+		} catch (Exception ex){
+			error_l.setText("Error");
+			id = "616f52297811334c6758a1c2";
+			ex.printStackTrace(System.out);
 		}
 	}
 	
@@ -122,8 +127,12 @@ public class PanelIngreso extends JPanel {
 			textField.setText("");
 			contrasenaTF.setText("");
 			error_l.setText("");
-		} catch (Exception ex) {
+		} catch (UsuarioContrasenaException ex) {
 			error_l.setText("Usuario o contraseña incorrecta");
+			id = "616f52297811334c6758a1c2";
+			ex.printStackTrace(System.out);
+		} catch (Exception ex){
+			error_l.setText("Error");
 			id = "616f52297811334c6758a1c2";
 			ex.printStackTrace(System.out);
 		}

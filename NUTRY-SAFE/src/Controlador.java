@@ -37,8 +37,25 @@ public class Controlador {
 	 * @return String
 	 * @throws UsuarioContrasenaException
 	 * @throws UsuarioExisteException
+	 * @throws ContrasenaInvalidaException
+	 * @throws ContrasenaVaciaException
 	 */
-	public static String getIdUsuario(String nombre, String contrasena, boolean nuevo) throws UsuarioExisteException, UsuarioContrasenaException {
+	public static String getIdUsuario(String nombre, String contrasena, boolean nuevo) throws UsuarioExisteException, UsuarioContrasenaException, ContrasenaInvalidaException {
+		
+		if (contrasena.length() < 8){
+			throw new ContrasenaInvalidaException();
+		}
+		if (contrasena.toLowerCase().equals(contrasena)){
+			throw new ContrasenaInvalidaException();
+		}
+		boolean contiene_dig = false;
+		for (char c : contrasena.toCharArray()){
+			try {
+				Integer.valueOf(String.valueOf(c));
+				contiene_dig = true;
+			} catch (Exception e){}
+		}
+		if (!contiene_dig){throw new ContrasenaInvalidaException();}
 		return MongoDB.getIdUsuario(nombre, contrasena, nuevo);
 	}
 
@@ -112,7 +129,7 @@ public class Controlador {
 	 */
 	public static String inicioSesion(String nombre, String contrasena, boolean nuevo) throws Exception {
 		if (nombre.length() == 0){
-			throw new Exception();
+			throw new UsuarioVacioException();
 		}
 		String id = getIdUsuario(nombre, contrasena, nuevo);
 		if (id.length() == 0) {

@@ -1,5 +1,7 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Controlador.
@@ -150,4 +152,34 @@ public class Controlador {
 		return Receta.darReceta(MongoDB.getRecetas());
 	}
 
+	public static Object[] getHist(String id){
+		Object[] maps = MongoDB.getHist(id);
+		HashMap<String, Integer> con_hist = (HashMap<String, Integer>) maps[0];
+		HashMap<String, Integer> obj_hist = (HashMap<String, Integer>) maps[1];
+
+		List<String> keys = new ArrayList<>();
+		for (String k : con_hist.keySet()){
+			keys.add(k);
+		}
+		Collections.sort(keys);
+		Collections.reverse(keys);
+
+		HashMap<String, Integer> crop_con_hist = new HashMap<>();
+		HashMap<String, Integer> crop_obj_hist = new HashMap<>();
+		int max = 7;
+
+		if (keys.size() < 7){
+			max = keys.size();
+		}
+		for (int i=0; i<max; i++){
+			crop_con_hist.put(keys.get(i), con_hist.get(keys.get(i)));
+			crop_obj_hist.put(keys.get(i), obj_hist.get(keys.get(i)));
+		}
+
+		Object[] ans = new Object[2];
+		ans[0] = (Object) crop_con_hist;
+		ans[1] = (Object) crop_obj_hist;
+		
+		return ans;
+	}
 }

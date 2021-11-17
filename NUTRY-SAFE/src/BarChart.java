@@ -23,7 +23,7 @@ public class BarChart extends JFrame {
     super();
 
     // Create Dataset
-    CategoryDataset dataset = createDataset(MongoDB.getHist(id));
+    CategoryDataset dataset = createDataset(Controlador.getHist(id));
 
     //Create chart
     JFreeChart chart=ChartFactory.createBarChart(

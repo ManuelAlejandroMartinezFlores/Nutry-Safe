@@ -182,4 +182,8 @@ public class Controlador {
 		
 		return ans;
 	}
+
+	public static String getReceta(String tipo){
+		return Receta.darReceta(MongoDB.getRecetas(tipo));
+	}
 }

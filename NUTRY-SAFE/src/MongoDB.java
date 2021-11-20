@@ -270,4 +270,18 @@ public class MongoDB {
         Document doc = collection.find(query).iterator().next();
         return (List<String>) doc.get("lista");
     }
+
+    public static List<String> getRecetas(String tipo){
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://admin:admin@nutrysafe.htrby.mongodb.net/NutrySafe?retryWrites=true&w=majority");
+        MongoClientSettings settings = MongoClientSettings.builder()
+                                                            .applyConnectionString(connectionString)
+                                                            .build();
+        MongoClient mongoClient = MongoClients.create(settings);
+        MongoDatabase database = mongoClient.getDatabase("Usuarios");
+        
+        MongoCollection<Document> collection = database.getCollection("utils");
+        Document query = new Document("nombre", "recetas");
+        Document doc = collection.find(query).iterator().next();
+        return (List<String>) doc.get(tipo);
+    }
 }

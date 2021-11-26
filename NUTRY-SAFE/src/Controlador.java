@@ -102,25 +102,6 @@ public class Controlador {
 		return resultado;
 	}
 	
-	/** 
-	 * Genera un consejo para el usuario
-	 * @param id
-	 * @return String consejo del usuario
-	 */
-	public static String darConsejo(String id) {
-		Integer[] data = getEdadCaloria(id);
-		return Receta.darConsejo(data[0], data[1]);
-	}
-	
-	/** 
-	 * Genera una receta para el usuario
-	 * @param id
-	 * @return String Receta
-	 */
-	public static String recetaCalorias(String id) {
-		int caloria_obj = MongoDB.calMetaUsuario(id);
-		return Receta.recetaCalorias(caloria_obj);
-	}
 	
 	/** 
 	 * Inicia seción
@@ -148,9 +129,6 @@ public class Controlador {
 		return Receta.darConsejo(MongoDB.getConsejos());
 	}
 
-	public static String darReceta(){
-		return Receta.darReceta(MongoDB.getRecetas());
-	}
 
 	public static Object[] getHist(String id){
 		Object[] maps = MongoDB.getHist(id);

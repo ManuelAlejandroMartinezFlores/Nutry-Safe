@@ -19,7 +19,7 @@ public class PanelIngreso extends JPanel {
 	JButton salir_b;
 	JTextField textField;
 	JPasswordField contrasenaTF;
-	JLabel error_l;
+	JTextPane error_l;
 	JLabel titulo_l;
 	JLabel inst_l;
 	JLabel ingreso_l;
@@ -79,9 +79,10 @@ public class PanelIngreso extends JPanel {
 		existente_b.setBounds(173, 164, 146, 29);
 		add(existente_b);
 		
-		error_l = new JLabel("", SwingConstants.CENTER);
-		error_l.setBounds(98, 214, 172, 16);
+		error_l = new JTextPane();
+		error_l.setBounds(50, 214, 300, 50);
 		add(error_l);
+		error_l.setVisible(false);
 		
 		salir_b = new JButton("Salir");
 		salir_b.setBounds(10, 304, 117, 29);
@@ -106,10 +107,22 @@ public class PanelIngreso extends JPanel {
 			contrasenaTF.setText("");
 			error_l.setText("");
 		} catch (UsuarioExisteException ex) {
-			error_l.setText("Usuario ya existe");
+			error_l.setVisible(true);
+			error_l.setText(ex.getMessage());
+			id = "616f52297811334c6758a1c2";
+			ex.printStackTrace(System.out);
+		} catch (ContrasenaInvalidaException ex){
+			error_l.setVisible(true);
+			error_l.setText(ex.getMessage());
+			id = "616f52297811334c6758a1c2";
+			ex.printStackTrace(System.out);
+		} catch (UsuarioVacioException ex) {
+			error_l.setVisible(true);
+			error_l.setText(ex.getMessage());
 			id = "616f52297811334c6758a1c2";
 			ex.printStackTrace(System.out);
 		} catch (Exception ex){
+			error_l.setVisible(true);
 			error_l.setText("Error");
 			id = "616f52297811334c6758a1c2";
 			ex.printStackTrace(System.out);
@@ -128,10 +141,22 @@ public class PanelIngreso extends JPanel {
 			contrasenaTF.setText("");
 			error_l.setText("");
 		} catch (UsuarioContrasenaException ex) {
-			error_l.setText("Usuario o contraseña incorrecta");
+			error_l.setVisible(true);
+			error_l.setText(ex.getMessage());
+			id = "616f52297811334c6758a1c2";
+			ex.printStackTrace(System.out);
+		} catch (ContrasenaInvalidaException ex){
+			error_l.setVisible(true);
+			error_l.setText(ex.getMessage());
+			id = "616f52297811334c6758a1c2";
+			ex.printStackTrace(System.out);
+		} catch (UsuarioVacioException ex) {
+			error_l.setVisible(true);
+			error_l.setText(ex.getMessage());
 			id = "616f52297811334c6758a1c2";
 			ex.printStackTrace(System.out);
 		} catch (Exception ex){
+			error_l.setVisible(true);
 			error_l.setText("Error");
 			id = "616f52297811334c6758a1c2";
 			ex.printStackTrace(System.out);
@@ -177,7 +202,7 @@ public class PanelIngreso extends JPanel {
 		textField.setVisible(true);
 		contrasenaTF.setVisible(true);
 		contra_l.setVisible(true);
-		error_l.setVisible(true);
+		// error_l.setVisible(true);
 		titulo_l.setVisible(true);
 		inst_l.setVisible(true);
 		ingreso_l.setVisible(true);

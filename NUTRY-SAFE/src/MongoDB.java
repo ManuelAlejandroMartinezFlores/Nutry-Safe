@@ -257,7 +257,8 @@ public class MongoDB {
      * Genera un arreglo con urls de recetas
      * @return lista con url
      */
-    public static List<String> getRecetas(){
+
+    public static List<String> getRecetas(String tipo){
         ConnectionString connectionString = new ConnectionString("mongodb+srv://admin:admin@nutrysafe.htrby.mongodb.net/NutrySafe?retryWrites=true&w=majority");
         MongoClientSettings settings = MongoClientSettings.builder()
                                                             .applyConnectionString(connectionString)
@@ -268,6 +269,6 @@ public class MongoDB {
         MongoCollection<Document> collection = database.getCollection("utils");
         Document query = new Document("nombre", "recetas");
         Document doc = collection.find(query).iterator().next();
-        return (List<String>) doc.get("lista");
+        return (List<String>) doc.get(tipo);
     }
 }

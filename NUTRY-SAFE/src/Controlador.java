@@ -1,5 +1,7 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Controlador.
@@ -37,8 +39,25 @@ public class Controlador {
 	 * @return String
 	 * @throws UsuarioContrasenaException
 	 * @throws UsuarioExisteException
+	 * @throws ContrasenaInvalidaException
+	 * @throws ContrasenaVaciaException
 	 */
-	public static String getIdUsuario(String nombre, String contrasena, boolean nuevo) throws UsuarioExisteException, UsuarioContrasenaException {
+	public static String getIdUsuario(String nombre, String contrasena, boolean nuevo) throws UsuarioExisteException, UsuarioContrasenaException, ContrasenaInvalidaException {
+		
+		if (contrasena.length() < 8){
+			throw new ContrasenaInvalidaException();
+		}
+		if (contrasena.toLowerCase().equals(contrasena)){
+			throw new ContrasenaInvalidaException();
+		}
+		boolean contiene_dig = false;
+		for (char c : contrasena.toCharArray()){
+			try {
+				Integer.valueOf(String.valueOf(c));
+				contiene_dig = true;
+			} catch (Exception e){}
+		}
+		if (!contiene_dig){throw new ContrasenaInvalidaException();}
 		return MongoDB.getIdUsuario(nombre, contrasena, nuevo);
 	}
 
@@ -83,25 +102,6 @@ public class Controlador {
 		return resultado;
 	}
 	
-	/** 
-	 * Genera un consejo para el usuario
-	 * @param id
-	 * @return String consejo del usuario
-	 */
-	public static String darConsejo(String id) {
-		Integer[] data = getEdadCaloria(id);
-		return Receta.darConsejo(data[0], data[1]);
-	}
-	
-	/** 
-	 * Genera una receta para el usuario
-	 * @param id
-	 * @return String Receta
-	 */
-	public static String recetaCalorias(String id) {
-		int caloria_obj = MongoDB.calMetaUsuario(id);
-		return Receta.recetaCalorias(caloria_obj);
-	}
 	
 	/** 
 	 * Inicia seción
@@ -112,7 +112,7 @@ public class Controlador {
 	 */
 	public static String inicioSesion(String nombre, String contrasena, boolean nuevo) throws Exception {
 		if (nombre.length() == 0){
-			throw new Exception();
+			throw new UsuarioVacioException();
 		}
 		String id = getIdUsuario(nombre, contrasena, nuevo);
 		if (id.length() == 0) {
@@ -129,8 +129,39 @@ public class Controlador {
 		return Receta.darConsejo(MongoDB.getConsejos());
 	}
 
-	public static String darReceta(){
-		return Receta.darReceta(MongoDB.getRecetas());
+
+	public static Object[] getHist(String id){
+		Object[] maps = MongoDB.getHist(id);
+		HashMap<String, Integer> con_hist = (HashMap<String, Integer>) maps[0];
+		HashMap<String, Integer> obj_hist = (HashMap<String, Integer>) maps[1];
+
+		List<String> keys = new ArrayList<>();
+		for (String k : con_hist.keySet()){
+			keys.add(k);
+		}
+		Collections.sort(keys);
+		Collections.reverse(keys);
+
+		HashMap<String, Integer> crop_con_hist = new HashMap<>();
+		HashMap<String, Integer> crop_obj_hist = new HashMap<>();
+		int max = 7;
+
+		if (keys.size() < 7){
+			max = keys.size();
+		}
+		for (int i=0; i<max; i++){
+			crop_con_hist.put(keys.get(i), con_hist.get(keys.get(i)));
+			crop_obj_hist.put(keys.get(i), obj_hist.get(keys.get(i)));
+		}
+
+		Object[] ans = new Object[2];
+		ans[0] = (Object) crop_con_hist;
+		ans[1] = (Object) crop_obj_hist;
+		
+		return ans;
 	}
 
+	public static String getReceta(String tipo){
+		return Receta.darReceta(MongoDB.getRecetas(tipo));
+	}
 }
